@@ -152,16 +152,13 @@
     </nav>
 
     <main class="container">
+      {% for buku in data %}
       <section class="card">
-        <div class="amount">{{ buku1.amount }}</div>
-        <h2>{{ buku1.name }}</h2>
-        <p>{{ buku1.description }}</p>
+        <div class="amount">{{ buku.amount }}</div>
+        <h2>{{ buku.name }}</h2>
+        <p>{{ buku.description }}</p>
       </section>
-      <section class="card">
-        <div class="amount">{{ buku2.amount }}</div>
-        <h2>{{ buku2.name }}</h2>
-        <p>{{ buku2.description }}</p>
-      </section>
+      {% endfor %}
     </main>
   </body>
 </html>
