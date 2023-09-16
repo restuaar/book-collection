@@ -1,25 +1,52 @@
 from django.shortcuts import render
 
+from django.http import HttpResponseRedirect
+from main.forms import ItemForm
+from django.urls import reverse
+
+from main.models import Item
+
 # Create your views here.
 
-def show_landing_page(request):
-    return render(request, "landingpage.html")
+default_book = [
+  {
+    'name' : "Laut Bercerita",
+    'amount' : "2",
+    'description' : "Buku yang diterbitkan pada tahun 2017 ini, menceritakan tentang seorang Aktivis Mahasiswa yang bernama Biru Laut. Ia seorang Aktivis yang bertekad memperjuangkan demokrasi di Indonesia pada masa Orde Baru, buku ini juga menceritakan tentang mereka yang hilang disebuah peristiwa penculikan aktivis pada tahun 1998.",
+  },
+  {
+    'name' : 'Negeri Para Bedebah',
+    'amount' : '3',
+    'description' : 'Inti dari novel Negeri Para Bedebah ini menceritakan tentang perjuangan Thomas dalam memperjuangkan Bank semesta. Thomas yang merupakan konsultan keuangan hendak menyelamatkan bank semesta yang ingin ditutup karena sebuah kasus. Jika bank tersebut di tutup maka uang nasabah dari bank tersebut akan hangus dan pihak bank tidak akan menagih hutang piutang yang belum dibayar nasabah atau pihak lain.'
+  }  
+]
 
-def show_main(request):
+def show_landing_page(request):
     context = {
-        'data' : [
-            {
-              'name' : "Laut Bercerita",
-              'amount' : "2",
-              'description' : "Buku yang diterbitkan pada tahun 2017 ini, menceritakan tentang seorang Aktivis Mahasiswa yang bernama Biru Laut. Ia seorang Aktivis yang bertekad memperjuangkan demokrasi di Indonesia pada masa Orde Baru, buku ini juga menceritakan tentang mereka yang hilang disebuah peristiwa penculikan aktivis pada tahun 1998.",
-            },
-            {
-              'name' : 'Negeri Para Bedebah',
-              'amount' : '3',
-              'description' : 'Inti dari novel Negeri Para Bedebah ini menceritakan tentang perjuangan Thomas dalam memperjuangkan Bank semesta. Thomas yang merupakan konsultan keuangan hendak menyelamatkan bank semesta yang ingin ditutup karena sebuah kasus. Jika bank tersebut di tutup maka uang nasabah dari bank tersebut akan hangus dan pihak bank tidak akan menagih hutang piutang yang belum dibayar nasabah atau pihak lain.'
-            }
-        ]
+      'name': 'Restu Ahmad Ar Ridho', # Nama kamu
+      'class': 'PBP E', # Kelas PBP kamu
     }
 
+    return render(request, "index.html", context)
 
+def show_main(request):
+    Items = Item.objects.all()
+    if (Items.count() == 0):
+      context = {
+          'data' : default_book
+      }
+    else:
+      context = {
+          'data' : Items
+      }
     return render(request, "main.html", context)
+
+def create_book(request):
+    form = ItemForm(request.POST or None)
+
+    if form.is_valid() and request.method == "POST":
+        form.save()
+        return HttpResponseRedirect(reverse('main:show_main'))
+
+    # context = {'form': form}
+    return render(request, "tambah_buku.html")
