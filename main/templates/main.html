@@ -1,5 +1,10 @@
 {% extends 'base.html' %} 
 {% block content %}
+{% if new_item.name != "" %}
+<div class="notif-buku-baru">
+  <p>Buku {{ new_item.name }} dengan jumlah {{ new_item.amount }} telah ditambahkan.</p>
+</div>
+{% endif %}
 <main class="container">
   {% for buku in data %}
   <section class="card">
