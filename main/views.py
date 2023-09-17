@@ -29,21 +29,20 @@ def show_landing_page(request):
       'name': 'Restu Ahmad Ar Ridho', # Nama kamu
       'class': 'PBP E', # Kelas PBP kamu
     }
-    request.session["name"] = ""
-    request.session["amount"] = ""
 
     return render(request, "index.html", context)
 
 def show_main(request):
     Items = Item.objects.all()
-    name_new_item = ""
-    amount_new_item = ""
     try:   
       if (request.session["name"] != "" and request.session["amount"] != ""):
         name_new_item = request.session["name"]
         amount_new_item = request.session["amount"]
+        del request.session["name"]
+        del request.session["amount"]
     except:
-      print("Lebih baik buka dari landing page dulu...")
+        name_new_item = ""
+        amount_new_item = ""
 
     if ((Items.count() == 0)):
       context = {
