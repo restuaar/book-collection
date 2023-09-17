@@ -1,11 +1,11 @@
-# COLLETION BOOK
+# BOOK COLLECTION
 **Nama**    : **Restu Ahmad Ar Ridho** <br/>
 **NPM**     : **2206028951** <br/>
 **Kelas**   : **PBP - E**
 
 
 # List README Tugas Sebelumnnya
-### - [README TUGAS 2](./src/README/README_2.md)
+- [README TUGAS 2](./src/README/README_2.md)
 
 
 # Apa perbedaan antara form POST dan form GET dalam Django?
