@@ -12,10 +12,10 @@
 
 |    **POST**   |    **GET**    |
 | :-----------: | :-----------: |
-| Data dikirim dalam tubuh permintaan HTTP, yang biasanya tidak terlihat oleh pengguna. Berguna ketika ingin mengirim data sensitif | Data akan disertakan dalam URL hal ini membuat data terlihat pada URL _browser_. **GET** umumnya digunakan untuk permintaan pencarian atau ketika ingin berbagi URL yang mencakup parameter tertentu.  |
+| Data dikirim dalam _body_ permintaan HTTP, yang biasanya tidak terlihat oleh pengguna. Berguna ketika ingin mengirim data sensitif | Data akan disertakan dalam URL hal ini membuat data terlihat pada URL _browser_. Umumnya digunakan untuk permintaan pencarian atau ketika ingin berbagi URL yang mencakup parameter tertentu.  |
 | Biasanya digunakan ketika ingin mengirim data yang lebih besar atau lebih kompleks, seperti teks panjang, file, atau data yang rahasia.  | Cocok untuk data yang lebih kecil dan sederhana, seperti parameter pencarian atau pemfilteran data (_query_).  |
 | Data yang dikirim dengan metode POST tidak terlihat di URL, sehingga lebih aman untuk data sensitif. Selain itu, dapat mengamankan formulir POST dengan token CSRF untuk melindungi dari serangan Cross-Site Request Forgery (CSRF).  | Data yang dikirim dengan metode GET terlihat di URL, sehingga tidak cocok untuk data sensitif.  |
-| Permintaan POST tidak akan di-_cache_ oleh _browser_ atau _proxy server_ secara _default_ karena mereka dianggap mengubah data di _server_.  | Permintaan GET bisa saja di-cache oleh browser atau proxy server, yang berarti hasil pencarian atau tampilan halaman dapat disimpan dalam cache.  |
+| Permintaan POST tidak akan di-_cache_ oleh _browser_ atau _proxy server_ secara _default_ karena mereka dianggap mengubah data di _server_.  | Permintaan GET bisa saja di-_cache_ oleh _browser_ atau _proxy server_, yang berarti hasil pencarian atau tampilan halaman dapat disimpan dalam _cache_.  |
 
 # Apa perbedaan utama antara XML, JSON, dan HTML dalam konteks pengiriman data?
 |  **XML**  | **JSON**  | **HTML**  |
