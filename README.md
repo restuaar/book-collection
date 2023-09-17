@@ -191,6 +191,6 @@ Sebelumnya, mengubah susunan templates dengan menggunakan `base.html` sebagai ba
 ![Result JSON by ID using Postman](./src/img/JSONbyIDPostman.png)
 
 # BONUS
-1. Membuat kondisional _rendering_ pada berkas html `main.html` pada direktori `main/templates`.
-2. Membuka berkas `views.py` pada direktori `main` dengan menambahkan kode untuk menyimpan hasil form yang telah di-_input_ kedalam _session_ agar dapat _passing_ dari _function_ `create_book` ke `show_main` agar dapat menampilkan buku apa telah ditambahkan.
-3. Pada _function_ `create_book` menggunakan _session_ untuk menyimpan data `name` dan `amount` dan pada `show_main` dilakukan pengecekan terhadap variabel yang telah disimpan dalam _session_, jika ada maka dikirim data `name` dan `amount` ke bagan `context` dan jika tidak ada maka hanya mengirimkan string kosong agar dapat di-_handle_ oleh kondisional _rendering_ pada berkas HTML.
+1. Membuat kondisional _rendering_ pada berkas html yaitu `main.html` pada direktori `main/templates`.
+2. Membuka berkas `views.py` pada direktori `main` dan menambahkan kode untuk menyimpan hasil form yang telah di-_input_ kedalam _session_ agar dapat di-_passing_ dari _function_ `create_book` ke `show_main` sehingga dapat menampilkan buku yang telah ditambahkan.
+3. Pada _function_ `create_book` saya menggunakan _session_ untuk menyimpan data `name` dan `amount` dan pada _function_ `show_main` dilakukan pengecekan terhadap variabel yang telah disimpan didalam _session_, jika ada maka dikirimkan data `name` dan `amount` ke bagian `context` saat _render_ dan jika tidak ada maka hanya mengirimkan string kosong agar dapat di-_handle_ oleh kondisional _rendering_ pada berkas HTML.
