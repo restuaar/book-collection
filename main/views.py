@@ -38,9 +38,12 @@ def show_main(request):
     Items = Item.objects.all()
     name_new_item = ""
     amount_new_item = ""
-    if (request.session["name"] != "" and request.session["amount"] != ""):
-      name_new_item = request.session["name"]
-      amount_new_item = request.session["amount"]
+    try:   
+      if (request.session["name"] != "" and request.session["amount"] != ""):
+        name_new_item = request.session["name"]
+        amount_new_item = request.session["amount"]
+    except:
+      print("Lebih baik buka dari landing page dulu...")
 
     if ((Items.count() == 0)):
       context = {
