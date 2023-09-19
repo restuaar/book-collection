@@ -1,200 +1,196 @@
-[Book Colletion Adabtable](https://book-collection.adaptable.app/)
+# BOOK COLLECTION
+**Nama**    : **Restu Ahmad Ar Ridho** <br/>
+**NPM**     : **2206028951** <br/>
+**Kelas**   : **PBP - E**
+
+
+# List README Tugas Sebelumnnya
+- [README TUGAS 2](./src/README/README_2.md)
+
+
+# Apa perbedaan antara form POST dan form GET dalam Django?
+
+|    **POST**   |    **GET**    |
+| :-----------: | :-----------: |
+| Data dikirim dalam _body_ permintaan HTTP, yang biasanya tidak terlihat oleh pengguna. Berguna ketika ingin mengirim data sensitif | Data akan disertakan dalam URL hal ini membuat data terlihat pada URL _browser_. Umumnya digunakan untuk permintaan pencarian atau ketika ingin berbagi URL yang mencakup parameter tertentu.  |
+| Biasanya digunakan ketika ingin mengirim data yang lebih besar atau lebih kompleks, seperti teks panjang, file, atau data yang rahasia.  | Cocok untuk data yang lebih kecil dan sederhana, seperti parameter pencarian atau pemfilteran data (_query_).  |
+| Data yang dikirim dengan metode POST tidak terlihat di URL, sehingga lebih aman untuk data sensitif. Selain itu, dapat mengamankan formulir POST dengan token CSRF untuk melindungi dari serangan Cross-Site Request Forgery (CSRF).  | Data yang dikirim dengan metode GET terlihat di URL, sehingga tidak cocok untuk data sensitif.  |
+| Permintaan POST tidak akan di-_cache_ oleh _browser_ atau _proxy server_ secara _default_ karena mereka dianggap mengubah data di _server_.  | Permintaan GET bisa saja di-_cache_ oleh _browser_ atau _proxy server_, yang berarti hasil pencarian atau tampilan halaman dapat disimpan dalam _cache_.  |
+
+# Apa perbedaan utama antara XML, JSON, dan HTML dalam konteks pengiriman data?
+|  **XML**  | **JSON**  | **HTML**  |
+| :---: | :---: | :---: |
+|**JSON** adalah singkatan dari JavaScript Object Notation. | **XML** adalah singkatan dari Extensible Markup Language. | **HTML** adalah singkatan dari Hypertext Markup Language.|
+| XML dirancang untuk menyimpan dan mengirimkan data serta menjaga struktur data yang kuat. Sering digunakan dalam konteks pertukaran data antara sistem yang berbeda atau penyimpanan data dalam format yang dapat diurai. | JSON awalnya dikembangkan untuk digunakan dengan JavaScript, tetapi sekarang merupakan format data yang populer untuk pertukaran data dalam aplikasi web.  | HTML adalah _hypertext_ yang digunakan untuk menggambarkan struktur dan tampilan halaman web. HTML bukan format pertukaran data, melainkan format untuk menampilkan data di web. |
+| XML menggunakan tag untuk mendefinisikan struktur data. Setiap elemen data dikelilingi oleh tag pembuka dan penutup yang membantu menjaga hierarki dan hubungan antara elemen-elemen data. 	 Perlu mengurai XML dengan pengurai XML. | JSON menggunakan format objek dan array untuk menyimpan data. Ini mirip dengan struktur data dalam JavaScript, yang membuatnya mudah diurai dan digunakan dalam kode JavaScript. | HTML menggunakan tag untuk menentukan elemen-elemen pada halaman web, seperti teks, gambar, hyperlink, formulir, dan banyak lagi. Memiliki struktur yang sangat berbeda dari XML dan JSON, karena tujuannya adalah untuk merender konten web. |
+| XML dirancang untuk dapat dibaca oleh mesin dan manusia, sehingga sering digunakan dalam berbagai aplikasi yang memerlukan interoperabilitas antara sistem yang berbeda. Sintaksis XML mengganti beberapa karakter untuk referensi entitas sehingga membuatnya menjadi lebih bertele-tele. | JSON mudah dibaca oleh mesin dan juga cukup mudah dibaca oleh manusia, meskipun tidak sejelas XML dalam hal hierarki.  | HTML dirancang untuk ditampilkan oleh browser web dan tidak memiliki tujuan untuk pertukaran data. Namun, HTML dapat menampilkan data dan meminta input melalui _tag input_ dan metodenya|
+|Harus mematikan DTD ketika bekerja dengan XML untuk memitigasi potensi risiko keamanan.|JSON lebih aman dibandingkan dengan XML. | --
+
+# Mengapa JSON sering digunakan dalam pertukaran data antara aplikasi web modern?
+JSON adalah format pertukaran data berbasis teks yang mengikuti sintaksis objek JavaScript. JSON sering digunakan dalam pertukaran data antara aplikasi web modern karena memiliki sejumlah keunggulan, yaitu:
+1. JSON memiliki format yang ringan sehingga menghasilkan ukuran data yang relatif kecil, yang memungkinkan transfer data yang lebih cepat antara server dan klien. Kecilnya ukuran data JSON adalah keuntungan utama saat beroperasi dengan perangkat berkecepatan rendah atau koneksi internet yang lambat.
+2. JSON menggunakan format objek dan array yang mirip dengan struktur data dalam JavaScript. Ini membuatnya mudah dibaca dan ditulis dalam kode. Dalam JavaScript, kita dapat mengurai (`parse`) dan menghasilkan (`stringify`) objek JSON dengan mudah menggunakan fungsi built-in.
+3. JSON tidak terkait dengan bahasa pemrograman tertentu. JSON dapat digunakan dengan berbagai bahasa pemrograman, tidak hanya JavaScript. Hal ini memungkinkan interaksi antara berbagai bahasa dalam ekosistem pengembangan web.
+4. Hampir semua browser web modern mendukung JSON. Memungkinkan klien web untuk dengan mudah berkomunikasi dengan server menggunakan JSON sebagai format pertukaran data.
+5. JSON sangat cocok dengan pendekatan gaya arsitektur API RESTful, yang sering digunakan dalam pengembangan web modern. API RESTful menggunakan HTTP request methods seperti `GET`, `POST`, `PUT`, `DELETE` untuk berinteraksi dengan sumber daya (_resource_) menggunakan JSON sebagai format pertukaran data standar.
+6. JSON biasanya mudah dikelola dalam kode karena strukturnya yang serupa dengan objek dan array dalam banyak bahasa pemrograman. Hal ini membuat pengolahan data JSON menjadi lebih sederhana.
 
 # Implementasi Setiap Step
+Sebelumnya, mengubah susunan templates dengan menggunakan `base.html` sebagai base html dan digunakan dalam `templates` pada direktori `main` dan susunan README.md. Mengubah beberapa kode pada `views.py` di direktori `main` pada _function_ `show_main` yang mem-_passing_ data yang sesuai jika belum terdapat item pada database dan juga pada _function_ `show_landing_page` yang menampilkan data Nama dan Kelas
+## Membuat Input `form` Untuk Menambahkan Objek Model
+1. Membuat berkas baru pada direktori `main` dengan nama `forms.py` untuk membuat struktur form agar sesuai dengan models `Item` yang telah kita buat. Kemudian isi dengan kode
+    ```python
+    from django.forms import ModelForm
+    from main.models import Item
 
-## Membuat Project Baru Django
-### 1. Inisiasi Proyek Django
-1. Membuka _command prompt_ (Windows) kemudian menuju direktori yang diinginkan.
-2. Membuat direktori baru dengan nama `book_collection` dan masuk kedalamnya menggunakan perintah
-    ```bash
-    mkdir book_collection
-    cd book_collection
+    class ItemForm(ModelForm):
+        class Meta:
+            model = Item
+            fields = ["name", "amount", "description"]
     ```
-3. Di dalam direktori tersebut membuat _virtual environtment_ dengan menjalankan perintah
-    ```bash
-    python -m venv env
+2. Pada `views.py` dalam direktori `main` kita import struktur form yang sudah dibuat dan beberapa _function_ dan _class_ untuk melakukan _redirect_ url dengan kode
+    ```python
+    from django.http import HttpResponseRedirect
+    from main.forms import ItemForm
+    from django.urls import reverse
     ```
-4. Setelah berhasil membuat _virtual environtment_, kemudian mengaktifkannya dalam Windows dengan perintah
-    ```bash
-    env\Scripts\activate.bat
-    ```
-### 2. Menyiapkan _Dependencies_ dan Membuat Proyek Django
-1. Di dalam direktori yang sama, buat file `requirements.txt` dan tambahkan _dependencies_ yang diperlukan dengan isi berkas dengan text berikut
-    ```text
-    django
-    gunicorn
-    whitenoise
-    psycopg2-binary
-    requests
-    urllib3
-    ```
-2. Intall atau pasang _dependencies_ yang telah ditambahkan didalam _virtual environtment_ dengan perintah
-      ```bash
-      pip install -r requirements.txt
-      ```
-3. Buat aplikasi Django baru bernama `book_collection` dengan perintah
-      ```bash
-      django-admin startproject book_collection .
-      ```
-4. Menambahkan `*` pada `ALLOWED_HOSTS` di `settings.py` untuk mengizinkan akses semua host sebagai keperluan _deployment_
-      ```python
-      ALLOWED_HOSTS = ["*"]
-      ```
+3. Kemudian menambahkan _function_ baru untuk menampilkan `tambah_buku.html` yang akan dibuat dan menerima data dari method `POST` dengan kode
+    ```python
+    def create_book(request):
+    form = ItemForm(request.POST or None)
 
-## Membuat Aplikasi dengan Nama `main`
-1. Membuat aplikasi baru dengan nama `main` pada root direktori `book_collection` dengan perintah
-      ```bash
-      python manage.py startapp main
-      ```
-2. Mendaftarkan aplikasi yang telah dibuat kedalam proyek Django dengan cara membuka berkas `settings.py` di dalam direktori proyek `book_collection` tambahkan `main` kedalam daftar aplikasi yang ada
-      ```python
-      INSTALLED_APPS = [
-        ...,
-        'main',
-        ...
-      ]
-      ```
+    if form.is_valid() and request.method == "POST":
+        form.save()
+        return HttpResponseRedirect(reverse('main:show_main'))
 
-## Melakukan _Routing_ pada Proyek agar Dapat Menjalankan Aplikasi `main`
-1. Buka berkas `urls.py` pada direktori proyek `book_colletion` kemudian import fungsi `include` dari `django.urls`
-      ```python
+    return render(request, "tambah_buku.html")
+    ```
+4. Melakukan _routing_ di berkas `urls.py` di direktori `main` dengan meng-_import method_ `create_book` dari `views.py` dengan menambahkan kode
+    ```python
+    ...
+    from main.views import show_main, show_landing_page, create_book
+
+    ...
+
+    urlpatterns = [
+      ...,
+      path('tambah_buku/', create_book, name='show_tambah_buku'),
       ...
-      from django.urls import path, include
+    ]
+    ```
+5. Membuat berkas HTML dengan nama `tambah_buku.html` pada direktori `main/templates` dengan kode yang tertera pada file tersebut.
+
+## Tambahkan 5 Fungsi Views Untuk Melihat Objek yang Sudah Ditambahkan dalam Format HTML, XML, JSON, XML by ID, dan JSON by ID.
+### Format HTML
+1. Dalam format html sudah dilakukan pada tugas 2 yaitu dengan membuat berkas html `main.html` untuk menampilkan data yang telah ditambahkan. 
+2. Membuat _function_ pada `views.py` di direktori mian dengan kode
+    ```python
+    def show_main(request):
+    Items = Item.objects.all()
+
+    if ((Items.count() == 0)):
+      context = {
+          'data' : default_book
+      }
+    else:
+      context = {
+          'data' : Items
+      }
+
+    return render(request, "main.html", context)
+    ```
+    > Penjelasan singkat jika Item kosong maka akan menggunakan item default sebagai _dummy_ jika ada maka menggunakan data dari Item
+
+### Format XML dan XML by ID
+1. Membuat _function_ baru dalam berkas `views.py` dalam direktori `main` dengan nama `show_xml` untuk menampilkan format XML dan `show_xml_by_id` untuk menampilkan format XML dengan ID tertentu.
+2. Untuk `show_xml` yang menampilkan semua data maka ditambahkan kode untuk mengambil data dengan `Item.objects.all()` dan untuk `show_xml_by_id` yang menampilkan data dengan ID tertentu ditambahkan kode dengan melakukan filter yaitu dengan `Item.objects.filter(pk=id)`
+3. Kemudian data akan diubah menjadi format XML dengan `serializers.serialize("xml",data)` sehingga menampilkan format XML. Kurang lebih kode akan menjadi
+    ```python
+    def show_xml(request):
+      data = Item.objects.all()
+      return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
+
+    def show_xml_by_id(request, id):
+      data = Item.objects.filter(pk=id)
+      return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
+    ```
+
+### Format JSON dan JSON by ID
+1. Kurang lebih sama dengan **Format XML dan XML by ID** namun ada nama fungsi `show_json` untuk menampilkan format JSON dan `show_json` untuk menampilkan format JSON by ID. Sehingga kode pada `views.py` dalam direktori `main` ditambahkan dengan
+    ```python
+    def show_json(request):
+      data = Item.objects.all()
+      return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+
+    def show_json_by_id(request, id):
+      data = Item.objects.filter(pk=id)
+      return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+    ```
+
+## Membuat _Routing_ URL untuk Masing-Masing Views yang Telah Ditambahkan
+1. Pada format HTML membuat _routing_ agar dapat ditampilkan dengan membuka berkas `urls.py` pada direktori `main` dengan menambahkan kode
+    ```python
+    urlpatterns = [
       ...
-      ```
-2. Tambahkan rute URL untuk mengarahkan aplikasi `main` ke routing `\` di dalam variabel `urlpatterns`
-      ```python
-      urlpatterns = [
+      path('main/', show_main, name='show_main'),
+      ...
+    ]
+    ```
+    **Penjelasan _routing_**
+    - `http://127.0.0.1:8000/main` akan menampilkan berkas HTML untuk menampilkan buku yang telah ditambahkan
+2. Melakukan _routing_ agar _user_ dapat mengakses melalui url dengan membuka berkas `urls.py` pada direktori `main` dan meng-_import_ _function_ yang telah dibuat dan menambah _routing_ dengan kode
+    ```python
+    ...
+    from main.views import show_main, show_landing_page, create_book, show_xml show_xml_by_id
+
+    ...
+
+    urlpatterns = [
         ...
-        path('', include('main.urls'))
+        path('xml/', show_xml, name='show_xml'),
+        path('xml/<int:id>/', show_xml_by_id, name='show_xml_by_id')
         ...
-      ] 
-      ```
-3. Pindah ke dalam direktori ke aplikasi `main` tambahkan berkas `urls.py` untuk melakukan konfigurasi _routing_ dalam aplikasi `main` untuk sekarang bisa dikosongkan terlebih dahulu.
+    ]
+    ```
+    **Penjelasan _routing_**
+    - `http://127.0.0.1:8000/xml` akan menampilkan format XML
+    - `http://127.0.0.1:8000/xml/[id]` akan menampilkan format XML dengan ID [id]
+3. Melakukan _routing_ agar _user_ dapat mengakses melalui url dengan membuka berkas `urls.py` pada direktori `main` dan meng-_import_ _function_ yang telah dibuat dan menambah _routing_ dengan kode
+    ```python
+    ...
+    from main.views import show_main, show_landing_page, create_book, show_xml, show_json, show_xml_by_id, show_json_by_id
 
-## Membuat Model pada Aplikasi `main` dengan Nama `Item` yang Memiliki Beberapa Atribut Wajib
-1. Buka berkas `models.py` pada direktori aplikasi `main` kemudian isi berkas `models.py` dengan kode berikut
-      ```python
-      class Item(models.Model):
-        name = models.CharField(max_length=255)
-        amount = models.IntegerField()
-        description = models.TextField()
-      ```
-    > pada model tersebut baru ditambahkan atribut yang wajib
-2. Melakukan migrasi model untuk mengubah struktur tabel basis data dengan perintah dalam root direktori
-      ```bash
-      python manage.py makemigrations
-      ```
-3. Menerapkan migrasi ke dalam basis data lokal dengan perintah
-      ``` bash
-      python manage.py migrate
-      ```
+    ...
 
-## Membuat Sebuah Fungsi pada `views.py` untuk Menampilkan Template HTML
-1. Sebelumnya membuat direktori `templates` pada direktori aplikasi `main`, kemudian pada direktori `templates` dan menambahkan berkas `main.html` sebagai template html untuk menampilkan koleksi buku
-2. Dan untuk _landing page_ pada direktori `templates` menambahkan berkas `landingpage.html` untuk menampilkan nama aplikasi serta nama dan kelas
-3. Buka berkas `views.py` kita dapat mengembalikan `main.html` dan `landingpage.html` dengan cara menambahkan sebuah fungsi untuk merespons
-      ```python
-      def show_landing_page(request):
-        return render(request, "landingpage.html")
-    
-      def show_main(request):
-        context = {
-            'data' : [...]
-        }
-    
-        return render(request, "main.html", context)
-      ```
+    urlpatterns = [
+        ...
+        path('json/', show_json, name='show_json'), 
+        path('json/<int:id>/', show_json_by_id, name='show_json_by_id'), 
+        ...
+    ]
+    ```
+    **Penjelasan _routing_**
+    - `http://127.0.0.1:8000/json` akan menampilkan format JSON
+    - `http://127.0.0.1:8000/json/[id]` akan menampilkan format JSON dengan ID [id]
 
-## Membuat _Routing_ pada `urls.py` Aplikasi `main` untuk Memetakan Funsi yang Telah Dibuat pada `views.py`
-1. Melakukan konfigurasi _Routing_ dengan menambahkan kode berikut kedalam berkas `urls.py` di direktori `main`
-      ```python
-      from django.urls import path
-      from main.views import show_main, show_landing_page
-    
-      app_name = 'main'
-    
-      urlpatterns = [
-          path('main/', show_main, name='show_main'),
-          path('', show_landing_page, name='show_landing_page'),
-      ]
-      ```
-      **Penjelasan Routing**
-      - `http://127.0.0.1:8000/` akan menampilkan landingpage.html
-      - `http://127.0.0.1:8000/main` akan menampilkan main.html
+## Mengakses Kelima URL yand Telah Dibuat Menggunakan Postman
+### HTML
+![Result HTML using Postman](./src/img/HTMLPostman.png)
+> Menampilkan pada HTML yang memuat data
 
-## _Addition_
-  Menambahkan style dan static untuk menampung file static
+### XML dan XML by ID
+#### XML
+![Result XML using Postman](./src/img/XMLPostman.png)
+#### XML by ID
+![Result XML by ID using Postman](./src/img/XMLbyIDPostman.png)
 
-## Melakukan _Deployment_ ke Adabtable
-1. Setelah akun GitHub terhubung maka tekan tombol `New App` dan pilih `Connect an Existing Repository`
-2. Pilih repositori yang digunakan yaitu `book-collection` dan pilih branch yang dijadikan _deployment branch_ yaitu `static`
-3. Memilih `Python App Template` dan `PostgreSQL` sebagai tipe basis data yang digunakan
-4. Menyesuaikan versi Python yang digunakan di _virtual environtment_ dengan menjalankan perintah `python --version`
-5. Pada bagian `Start Command` isi dengan perintah `python manage.py migrate && gunicorn book_collection.wsgi`
-6. Memasukan nama aplikasi sebagai _domain_ situs web dan setelah itu centang bagian `HTTP Listener on PORT` dan klik `Deploy App` untuk memulai proses _deployment_
+### JSON dan JSON by ID
+#### JSON
+![Result JSON using Postman](./src/img/JSONPostman.png)
+#### JSON by ID
+![Result JSON by ID using Postman](./src/img/JSONbyIDPostman.png)
 
-# Bagan Berisi _Request Client_ ke Web Aplikasi Berbasis Django Beserta Responnya
-![Bagan Request Client](./src/image1.png)
-1. Request Client ke Aplikasi Django
-   - Client mengirim permintaan HTTP ke aplikasi Django melalui browser atau aplikasi lainnya
-   - Permintaan ini dikirim ke `urls.py` dalam aplikasi Django kemudian mencocokkan URL permintaan dengan pola URL yang telah didefinisikan
-2. `urls.py`
-   - Setelah menemukan pola URL yang cocok, `urls.py` akan memanggil permintaan ke `views.py`
-3. `views.py`
-   - `views.py` berisi logika untuk mengolah permintaan  dan menrespons data yang diperlukan dari Model atau sumber lainnya seperti melakukan _render_ dari template dan melakukan _passing data_ dari `models.py`
-4. `models.py`
-   - Representasi struktural dari data dalam basis data atau penyimpanan lainnya.
-   - `views.py` dapat berinteraksi dengan Model untuk mengambil, memperbarui, atau menyimpan data.
-5. Response ke Client:
-   - Setelah `views.py` menyelesaikan logikanya, respons HTTP yang berisi data atau `HTML` yang akan ditampilkan di browser dikirimkan kembali ke Client.
-
-# Mengapa Menggunakan _Virtual Environtment_
-  Menggunakan _virtual environtment_ memungkinkan kita untuk mengisolasi dependensi yang diperlukan untuk proyek tertentu. Dengan cara ini, kita dapat bekerja pada beberapa proyek yang menggunakan versi yang berbeda dari dependensi tanpa konflik sehingga kita dapat dengan mudah untuk mengelola dan menginstal dependensi yang diperlukan untuk proyek tanpa menggabungkan dengan dependensi proyek lainnya. Selain itu, _virtual environment_ membuat pemeliharaan proyek yang lebih mudah karena semua dependensi dan pengaturan yang diperlukan disimpan dalam satu lingkungan yang dapat dikelola secara terpisah. 
-  ### Apakah Tetap Dapat Membuat Tanpa Menggunakan _Virtual Environtment_
-  Iya, namun kelebihan yang telah disebutkan sebelumnya tidak akan terjadi.
-  
-
-# MVC, MVT, MVVM
-1. **MVC** (Model View Controller) adalah sebuah _design pattern_ yang digunakan dalam pengembangan perangkat lunak dengan tujuan untuk memisahkan data (Model) dari tampilan (View) dan cara bagaimana cara memprosesnya (Controller). Penjelasan setiap komponen:
-  - Model: bagian yang bertugas untuk menyiapkan, mengatur, memanipulasi, dan mengorganisasikan data yang ada di database.
-  - View: bagian yang bertugas untuk menampilkan informasi dalam bentuk Graphical User Interface (GUI).
-  - Controller: bagian yang bertugas untuk menghubungkan serta mengatur model dan view agar dapat saling terhubung.
-  ![Bagan MVC](https://www.dicoding.com/blog/wp-content/uploads/2021/09/Grafis_3.jpg "Alur MVC")
-  > source: https://www.dicoding.com/blog/apa-itu-mvc-pahami-konsepnya/
-2. **MVT** (Model View Template) adalah sebuah _design pattern_ yang merupakan turunan dari struktur **MVC** yang digunakan dalam _framework_ Django yang membagi komponen menjadi Model-View-Template. Perbedaan utama antara MVT dan MVC adalah penggunaan "Template" dalam MVT yang memisahkan tampilan dengan cara yang lebih eksplisit dan memungkinkan pemisahan yang lebih kuat antara tampilan dan logika dan _framework_ itu sendiri yang menangani bagian control
-Penjelasan setiap komponen:
- - Model: Sebagai objek yang mendefinisikan entitas pada database beserta konfigurasinya 
- - View: Logika utama dari aplikasi yang akan melakukan pemrosesan terhadap permintaan yang masuk
- - Template: sebagai tampilan yang akan dikembalikan kepada pengguna
-  ![Bagan MVT](https://i.postimg.cc/9f3cmCWt/mvt.png "Alur MVT")
-  > source: https://prasetyadi.name/2021/pengantar-framework-django/
-3. **MVVM** (Model View ViewModel) adalah salah satu _design pattern_ pembuatan aplikasi berbasis GUI yang berfokus pada pemisahan antara kode untuk logika bisnis dan tampilan aplikasi. MVVM terbagi atas tiga lapisan yaitu Model, View, dan ViewModel yang memungkinkan untuk pemisahan kerja yang lebih baik antara UI dan logic.
-Penjelasan setiap komponen:
-- Model: mengelola data dan logika bisnis aplikasi yang didapatkan dari _ViewModel_ setelah menerima input dari _View_
-- View: representasi visual dari antarmuka pengguna (UI) dalam aplikasi
-- ViewModel: berada di antara layer view dan model dan berfungsi sebagai penghubung keduanya yang mendapatkan input dari view mengenai aktivitas pengguna dan melakukan _data binding_ dua arah.
-  ![Bagan MVVM](https://assets-global.website-files.com/61af164800e38cf1b6c60b55/6433b43a72548f3b0c050324_Alur-MVVM.webp "Alur MVVM")
-  > source: https://revou.co/kosakata/mvvm
-
-  ## Perbedaan MVC, MVT, dan MVVM
-  1. MVC (Model-View-Controller):
-     - Model digunakan untuk mengelola data.
-     - View bertanggung jawab untuk menampilkan data kepada pengguna dan mengumpulkan input pengguna.
-     - Controller mengatur aliran program, menerima input dari pengguna melalui View, dan berkomunikasi dengan Model.
-     - Biasanya digunakan dalam pengembangan aplikasi web dan desktop.
-  2. MVT (Model-View-Template):
-     - Model tetap bertanggung jawab untuk mengelola data.
-     - View bertanggung jawab untuk menampilkan data kepada pengguna dan logika utama yang melakukan pemrosesan terhadap permintaan yang masuk
-     - Template adalah komponen tambahan yang mengatur cara tampilan web dibangun dan disusun.
-     - Mirip dengan MVC, tetapi digunakan dalam _framework_ web Django.
-  3. MVVM (Model-View-ViewModel):
-     - Model bertanggung jawab untuk mengelola data.
-     - View merupakan antarmuka pengguna (UI) yang menampilkan data dan merespons tindakan pengguna.
-     - ViewModel adalah perantara antara Model dan View yang menghubungkan data Model ke tampilan View dan berisi logika bisnis terkait tampilan.
-     - Digunakan khususnya dalam pengembangan aplikasi berbasis antarmuka pengguna (UI), terutama aplikasi mobile dan desktop.
-
-# Bonus
-  Menyelesaikan implementasi _testing_ dasar yang dapat dilihat pada `./main/tests.py` yang melakukan _testing_ untuk Model data dan response _routing_ dengan menjalankan perintah `python manage.py test`
-  ![Testing Result](./src/image.png)
-  
+# BONUS
+1. Membuat kondisional _rendering_ pada berkas html yaitu `main.html` pada direktori `main/templates`.
+2. Membuka berkas `views.py` pada direktori `main` dan menambahkan kode untuk menyimpan hasil form yang telah di-_input_ kedalam _session_ agar dapat di-_passing_ dari _function_ `create_book` ke `show_main` sehingga dapat menampilkan buku yang telah ditambahkan.
+3. Pada _function_ `create_book` saya menggunakan _session_ untuk menyimpan data `name` dan `amount` dan pada _function_ `show_main` dilakukan pengecekan terhadap variabel yang telah disimpan didalam _session_, jika ada maka dikirimkan data `name` dan `amount` ke bagian `context` saat _render_ dan jika tidak ada maka hanya mengirimkan string kosong agar dapat di-_handle_ oleh kondisional _rendering_ pada berkas HTML.
