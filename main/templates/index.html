@@ -1,16 +1,39 @@
 {% extends 'base.html' %} 
+{% block title %} Homepage | Book Collection {%endblock title %} 
+{% block style %}
+<style>
+  .center {
+    min-height: calc(100vh - 15rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+</style>
+{% endblock style %} 
 {% block content %}
-<section class="hero">
-  <h1>{{ name }} <br />{{ class }}</h1>
-  <p>
-    Welcome to our Book Collection! We love books and have put together a
-    variety of titles just for you. From classics to modern reads, there's
-    something here for everyone. We hope you find the perfect book to enjoy.
-  </p>
-  <a
-    href="/main"
-    class="cta-button"
-    >Go to Collection</a
-  >
-</section>
+<div class="px-4 py-5 my-5 text-center center">
+  <h1 class="display-5 fw-bold">{{ name }} <br />{{ class }}</h1>
+  <div class="col-lg-6 mx-auto">
+    <p class="lead mb-4">
+      Welcome to our Book Collection! We love books and have put together a
+      variety of titles just for you. From classics to modern reads, there's
+      something here for everyone. We hope you find the perfect book to enjoy.
+    </p>
+    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+      <a
+        type="button"
+        class="btn btn-dark btn-lg px-4 gap-3"
+        href="{ url 'main:show_login' }"
+        >Login</a
+      >
+      <a
+        type="button"
+        class="btn btn-outline-secondary btn-lg px-4"
+        href="{ url 'main:show_register' }"
+        >Sign Up</a
+      >
+    </div>
+  </div>
+</div>
 {% endblock content %}
