@@ -2,7 +2,15 @@
 {% block title %} KoleksiKu | Book Collection {%endblock title %} 
 
 {% block content %}
-<div class="album py-5 bg-body-tertiary">
+
+<div class="album pb-5 pt-3 bg-body-tertiary">
+  {% if new_item %}
+    <div class="card w-50 mb-3 mx-auto">
+      <div class="card-body text-center">
+        {{ new_item }}
+      </div>
+    </div>
+  {% endif %}
   <div class="container">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
       {% for buku in data %}
@@ -33,6 +41,7 @@
         </div>
       </div>
       {% endfor %}
+
     </div>
   </div>
 </div>

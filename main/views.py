@@ -34,15 +34,10 @@ def show_landing_page(request):
 
 def show_main(request):
     Items = Item.objects.all()
-    try:   
-      if (request.session["name"] != "" and request.session["amount"] != ""):
-        name_new_item = request.session["name"]
-        amount_new_item = request.session["amount"]
-        del request.session["name"]
-        del request.session["amount"]
-    except:
-        name_new_item = ""
-        amount_new_item = ""
+    new_item = request.session.get('new_item', None)
+    print(new_item)
+    if 'new_item' in request.session:
+      del request.session["new_item"]
 
     if ((Items.count() == 0)):
       context = {
@@ -51,10 +46,7 @@ def show_main(request):
     else:
       context = {
           'data' : Items,
-          'new_item' : {
-              'name' : name_new_item,
-              'amount' : amount_new_item
-          }
+          'new_item' : new_item
       }
 
     return render(request, "main.html", context)
@@ -66,8 +58,9 @@ def create_book(request):
         form.save()
         name = request.POST.get("name")
         amount = request.POST.get("amount")
-        request.session["name"] = name
-        request.session["amount"] = amount
+        request.session["new_item"] = f"Buku {name} dengan jumlah {amount} telah ditambahkan"
+        print(request.session["new_item"])
+
 
         return HttpResponseRedirect(reverse('main:show_main'))
 
