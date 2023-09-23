@@ -55,10 +55,11 @@ def create_book(request):
     form = ItemForm(request.POST or None)
 
     if form.is_valid() and request.method == "POST":
-        form.save()
+        # form.save()
         name = request.POST.get("name")
         amount = request.POST.get("amount")
-        request.session["new_item"] = f"Buku {name} dengan jumlah {amount} telah ditambahkan"
+        print(request.POST)
+        request.session["new_item"] = request.POST
         print(request.session["new_item"])
 
 
