@@ -48,7 +48,12 @@
       <div class="col">
         <div class="card text-white bg-dark shadow-sm">
           <div class="card-body">
-            <button type="button" class="btn-close btn-close-white position-absolute top-0 end-0 me-2 mt-2"></button>
+
+            <form action="{% url 'main:delete' id=buku.id %}" method="POST">
+              {% csrf_token %}
+              <Button type="submit" class="btn-close btn-close-white position-absolute top-0 end-0 me-2 mt-2"></Button>
+            </form>
+          
             <h5 class="card-title fw-bold">{{ buku.name }}</h5>
             <p class="card-text">{{ buku.description }}</p>
             <div class="d-flex justify-content-between align-items-center">

@@ -19,18 +19,18 @@ from django.contrib.auth.decorators import login_required
 import datetime
 # Create your views here.
 
-default_book = [
-  {
-    'name' : "Laut Bercerita",
-    'amount' : "2",
-    'description' : "Buku yang diterbitkan pada tahun 2017 ini, menceritakan tentang seorang Aktivis Mahasiswa yang bernama Biru Laut. Ia seorang Aktivis yang bertekad memperjuangkan demokrasi di Indonesia pada masa Orde Baru, buku ini juga menceritakan tentang mereka yang hilang disebuah peristiwa penculikan aktivis pada tahun 1998.",
-  },
-  {
-    'name' : 'Negeri Para Bedebah',
-    'amount' : '3',
-    'description' : 'Inti dari novel Negeri Para Bedebah ini menceritakan tentang perjuangan Thomas dalam memperjuangkan Bank semesta. Thomas yang merupakan konsultan keuangan hendak menyelamatkan bank semesta yang ingin ditutup karena sebuah kasus. Jika bank tersebut di tutup maka uang nasabah dari bank tersebut akan hangus dan pihak bank tidak akan menagih hutang piutang yang belum dibayar nasabah atau pihak lain.'
-  }  
-]
+# default_book = [
+#   {
+#     'name' : "Laut Bercerita",
+#     'amount' : "2",
+#     'description' : "Buku yang diterbitkan pada tahun 2017 ini, menceritakan tentang seorang Aktivis Mahasiswa yang bernama Biru Laut. Ia seorang Aktivis yang bertekad memperjuangkan demokrasi di Indonesia pada masa Orde Baru, buku ini juga menceritakan tentang mereka yang hilang disebuah peristiwa penculikan aktivis pada tahun 1998.",
+#   },
+#   {
+#     'name' : 'Negeri Para Bedebah',
+#     'amount' : '3',
+#     'description' : 'Inti dari novel Negeri Para Bedebah ini menceritakan tentang perjuangan Thomas dalam memperjuangkan Bank semesta. Thomas yang merupakan konsultan keuangan hendak menyelamatkan bank semesta yang ingin ditutup karena sebuah kasus. Jika bank tersebut di tutup maka uang nasabah dari bank tersebut akan hangus dan pihak bank tidak akan menagih hutang piutang yang belum dibayar nasabah atau pihak lain.'
+#   }  
+# ]
 
 def register(request):
     form = UserCreationForm()
@@ -85,8 +85,8 @@ def show_main(request):
     if 'new_item' in request.session:
         del request.session["new_item"]
 
-    if ((Items.count() == 0)):
-        Items = default_book
+    # if ((Items.count() == 0)):
+    #     Items = default_book
   
     context = {
         'name': request.user.username,
@@ -109,6 +109,12 @@ def create_book(request):
         return HttpResponseRedirect(reverse('main:show_main'))
 
     return render(request, "tambah_buku.html")
+
+def delete_item(request, id = None):
+    item = Item.objects.get(pk=id)
+    item.delete()
+    return redirect('main:show_main')
+    
 
 # Mengembalikan data
 def show_xml(request):
