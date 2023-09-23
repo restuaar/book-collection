@@ -45,7 +45,7 @@
       <div class="container-fluid">
         <a
           class="navbar-brand mb-0 h2 col fw-bold"
-          href="#"
+          href="{% url 'main:show_landing_page' %}"
           ><span role="img">📖</span>PBP Ganjil 23/24</a
         >
         <div class="col justify-content-center">
@@ -53,16 +53,51 @@
         </div>
         <div class="col">
           <ul class="navbar-nav container-fluid justify-content-end">
-            {% block links %} 
-            <li class="nav-item">
-              <a
+            {% block links %}
+        
+            {% if user != AnonymousUser %}
+              <li class="nav-item">
+                <a
                 class="nav-link active"
-                href="{% url 'main:show_landing_page' %}"
-                ><span class="border-bottom border-light">Home</span></a
-              >
+                href="{% url 'main:logout' %}"
+                ><span class="border-bottom border-light">Logout</span></a
+                >
+              </li>
+              <li class="nav-item">
+                <p
+                class="navbar-text mb-0"
+                ><span class="text-light me-2 ps-2 border-start border-light">Welcome, {{ user }}</span>           
+              </p>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link active"
+                  href="{% url 'main:show_main' %}"
+                  ><span class="border-bottom border-light">KoleksiKu</span></a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link active"
+                  href="{% url 'main:show_tambah_buku' %}"
+                  ><span class="border-bottom border-light">Tambah Buku</span></a
+                >
+              </li>
+            {% else %}
+            <li class="nav-item">
+              <p
+                class="navbar-text mb-0"
+                ><span class="text-light">Welcome to Book Collection</span>
+              </p>
             </li>
+            {% endif %}
             {% endblock links %}
           </ul>
+          {% if last_login %}
+            <div class="container justify-content-end  text-end">
+              <small class="text-light me-2">Last Login: {{ last_login }}</small>
+            </div>
+          {% endif %}
         </div>
       </div>
     </nav>

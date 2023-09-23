@@ -1,7 +1,7 @@
 from django.forms import ModelForm
 from main.models import Item
 
-from django import forms  
+from django.contrib.auth.forms import UserCreationForm
 # from django.forms.forms import Form
 
 class ItemForm(ModelForm):
@@ -9,7 +9,7 @@ class ItemForm(ModelForm):
         model = Item
         fields = ["name", "amount", "description"]
 
-# class RegisterForm(ModelForm):  
+# class RegisterForm(UserCreationForm):   
 #     class Meta:
-#         model = User
-#         fields = ["username", "password1", "password2"] 
+#         model = CustomUser
+#         fields = ('username', 'password1', 'password2')

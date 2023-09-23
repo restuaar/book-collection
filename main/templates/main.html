@@ -1,9 +1,40 @@
 {% extends 'base.html' %} 
 {% block title %} KoleksiKu | Book Collection {%endblock title %} 
 
+{% block links %} 
+<li class="nav-item">
+  <a
+  class="nav-link active"
+  href="{% url 'main:logout' %}"
+  ><span class="border-bottom border-light">Logout</span></a
+  >
+</li>
+<li class="nav-item">
+  <p
+  class="navbar-text mb-0"
+  ><span class="text-light me-2 ps-2 border-start border-light">Welcome, {{ user }}</span>           
+</p>
+</li>
+<li class="nav-item">
+  <a
+    class="nav-link active"
+    href="{% url 'main:show_main' %}"
+    ><span class="border-bottom border-light">KoleksiKu</span></a
+  >
+</li>
+<li class="nav-item">
+  <a
+    class="nav-link active"
+    href="{% url 'main:show_tambah_buku' %}"
+    ><span class="border-bottom border-light">Tambah Buku</span></a
+  >
+</li>
+{% endblock links %}
+
+
 {% block content %}
 
-<div class="album pb-5 pt-3 bg-body-tertiary">
+<div class="album pb-5 pt-3">
   {% if new_item %}
     <div class="card w-50 mb-3 mx-auto">
       <p class="card-body text-center mb-0">

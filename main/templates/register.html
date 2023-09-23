@@ -1,79 +1,46 @@
 {% extends 'base.html' %} 
 {% block title %} Register | Book Collection {%endblock title %} 
-{% block style %}
-<style>
-  .form-signin {
-    max-width: 330px;
-    padding: 1rem;
-  }
 
-  .form-signin .form-floating:focus-within {
-    z-index: 2;
-  }
-
-  .form-signin input[type="text"] {
-    margin-bottom: -1px;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
-  }
-  
-  .form-signin input[id="floatingPassword1"] {
-    margin-bottom: -1px;
-    border-radius: 0;
-  }
-  .form-signin input[id="floatingPassword2"] {
-    margin-bottom: 20px;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-  }
-</style>
-{% endblock style %}
+{% block links %} 
+<li class="nav-item">
+  <a
+    class="nav-link active"
+    href="{% url 'main:show_landing_page' %}"
+    ><span class="border-bottom border-light">Home</span></a
+  >
+</li>
+<li class="nav-item">
+  <a
+    class="nav-link active"
+    href="{% url 'main:login' %}"
+    ><span class="border-bottom border-light">Login</span></a
+  >
+</li>
+{% endblock links %}
 
 {% block content %}
-<div class="d-flex align-items-center my-auto py-4">
-  <main class="form-signin w-100 m-auto">
-    <form method="POST">
-			{% csrf_token %}
-      <!-- <h1 class="h3 mb-3 fw-bold">Please Sign Up</h1>
-  
-      <div class="form-floating">
-        <input type="text" class="form-control" id="floatingInput" placeholder="restuaar" name="username">
-        <label for="floatingInput">Username</label>
-      </div>
-      <div class="form-floating">
-        <input type="password" class="form-control" id="floatingPassword1" placeholder="password" name="password1">
-        <label for="floatingInput1">Password</label>
-      </div>
-      <div class="form-floating">
-        <input type="password" class="form-control" id="floatingPassword2" placeholder="password" name="password2">
-        <label for="floatingPassword2">Password Confirmation</label>
-      </div>
-  
-      <button class="btn btn-dark w-100 py-2" type="submit">Sign in</button> -->
-      <form method="post">
-        {% csrf_token %}
-        {% for hidden_field in form.hidden_fields %}
-            {{ hidden_field }}
-        {% endfor %}
+<div class = "login">
+    
+  <h1>Register</h1>  
 
-        {% for field in form.visible_fields %}
-            <div class="form-group px-3">
-                {{ field.errors }}
-                <label style="font-weight: 500;">{{field.label}}</label>
-            </div>
-        {% endfor %}
-        <input class="btn btn-primary rounded mx-3 my-3" style="font-weight: 700;" type="submit" name="submit" value="Daftar">
-        <a class="btn btn-primary rounded label mx-5" style="font-weight: 700;"    >Sign In</a>
-    </form>
-    </form>
-  </main>
+      <form method="POST" >  
+          {% csrf_token %}  
+          <table>  
+              {{ form.as_table }}  
+              <tr>  
+                  <td></td>
+                  <td><input type="submit" name="submit" value="Daftar"/></td>  
+              </tr>  
+          </table>  
+      </form>
 
-  <!-- {% if messages %}  
-  <ul>   
-      {% for message in messages %}  
-          <li>{{ message }}</li>  
-      {% endfor %}  
-  </ul>   
-  {% endif %} -->
+  {% if messages %}  
+      <ul>   
+          {% for message in messages %}  
+              <li>{{ message }}</li>  
+              {% endfor %}  
+      </ul>   
+  {% endif %}
+
 </div>
 {% endblock content %}
