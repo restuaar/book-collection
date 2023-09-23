@@ -115,6 +115,19 @@ def delete_item(request, id = None):
     item.delete()
     return redirect('main:show_main')
     
+def add_stock(request, id = None):
+    item = Item.objects.get(pk=id)
+    item.amount += 1
+    item.save()
+    return redirect('main:show_main')
+    
+def sub_stock(request, id = None):
+    item = Item.objects.get(pk=id)
+    if item.amount > 1:
+      item.amount -= 1
+      item.save()
+    return redirect('main:show_main')
+    
 
 # Mengembalikan data
 def show_xml(request):
