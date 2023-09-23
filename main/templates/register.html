@@ -1,5 +1,7 @@
 {% extends 'base.html' %} 
+
 {% block title %} Register | Book Collection {%endblock title %} 
+
 {% block style %}
 <style>
   table {
@@ -11,15 +13,15 @@
   tbody {
     width: 60%;
   }
-  tr{
+  tr {
     display: grid;
     grid-template-columns: 1fr 1fr;
     width: 100%;
   }
 </style>
-{% endblock style %}
+{% endblock style %} 
 
-{% block links %} 
+{% block links %}
 <li class="nav-item">
   <a
     class="nav-link active"
@@ -34,30 +36,38 @@
     ><span class="border-bottom border-light">Login</span></a
   >
 </li>
-{% endblock links %}
+{% endblock links %} 
 
 {% block content %}
-<div class = "container-fluid d-flex flex-column justify-content-center align-items-center">
-  <h2 class="fw-bold my-4">Register</h2>  
+<div
+  class="container-fluid d-flex flex-column justify-content-center align-items-center"
+>
+  <h2 class="fw-bold my-4">Register</h2>
 
-      <form method="POST">  
-          {% csrf_token %}
-          <table>  
-              {{ form.as_table }}  
-              <tr>
-                  <td></td>
-                  <td><button type="submit" class="btn btn-dark">Submit</button></td>  
-              </tr>  
-          </table>  
-      </form>
+  <form method="POST">
+    {% csrf_token %}
+    <table>
+      {{ form.as_table }}
+      <tr>
+        <td></td>
+        <td>
+          <button
+            type="submit"
+            class="btn btn-dark"
+          >
+            Submit
+          </button>
+        </td>
+      </tr>
+    </table>
+  </form>
 
-  {% if messages %}  
-      <ul>   
-          {% for message in messages %}  
-              <li>{{ message }}</li>  
-              {% endfor %}  
-      </ul>   
+  {% if messages %}
+  <ul>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+  </ul>
   {% endif %}
-
 </div>
 {% endblock content %}

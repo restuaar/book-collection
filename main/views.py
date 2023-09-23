@@ -10,27 +10,13 @@ from django.http import HttpResponse
 from django.core import serializers
 
 from django.contrib import messages
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib import messages  
+from django.contrib.auth.forms import UserCreationForm 
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
 import datetime
 # Create your views here.
-
-# default_book = [
-#   {
-#     'name' : "Laut Bercerita",
-#     'amount' : "2",
-#     'description' : "Buku yang diterbitkan pada tahun 2017 ini, menceritakan tentang seorang Aktivis Mahasiswa yang bernama Biru Laut. Ia seorang Aktivis yang bertekad memperjuangkan demokrasi di Indonesia pada masa Orde Baru, buku ini juga menceritakan tentang mereka yang hilang disebuah peristiwa penculikan aktivis pada tahun 1998.",
-#   },
-#   {
-#     'name' : 'Negeri Para Bedebah',
-#     'amount' : '3',
-#     'description' : 'Inti dari novel Negeri Para Bedebah ini menceritakan tentang perjuangan Thomas dalam memperjuangkan Bank semesta. Thomas yang merupakan konsultan keuangan hendak menyelamatkan bank semesta yang ingin ditutup karena sebuah kasus. Jika bank tersebut di tutup maka uang nasabah dari bank tersebut akan hangus dan pihak bank tidak akan menagih hutang piutang yang belum dibayar nasabah atau pihak lain.'
-#   }  
-# ]
 
 def register(request):
     form = UserCreationForm()
@@ -70,9 +56,9 @@ def show_landing_page(request):
     user = request.COOKIES.get('user', None)
     
     context = {
-      'name': 'Restu Ahmad Ar Ridho', # Nama kamu
-      'class': 'PBP E', # Kelas PBP kamu
-      'user' : user,
+        'name': 'Restu Ahmad Ar Ridho', # Nama kamu
+        'class': 'PBP E', # Kelas PBP kamu
+        'user' : user,
     }
 
     return render(request, "index.html", context)
@@ -85,9 +71,6 @@ def show_main(request):
     if 'new_item' in request.session:
         del request.session["new_item"]
 
-    # if ((Items.count() == 0)):
-    #     Items = default_book
-  
     context = {
         'name': request.user.username,
         'data' : Items,
@@ -124,8 +107,8 @@ def add_stock(request, id = None):
 def sub_stock(request, id = None):
     item = Item.objects.get(pk=id)
     if item.amount > 1:
-      item.amount -= 1
-      item.save()
+        item.amount -= 1
+        item.save()
     return redirect('main:show_main')
     
 
