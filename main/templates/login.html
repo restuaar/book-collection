@@ -44,6 +44,15 @@
 
 {% block content %}
 <div class="d-flex flex-column align-items-center my-auto py-4">
+  {% if messages %}
+    {% for message in messages %}
+    <div class="card">
+      <p class="card-body text-center mb-0">
+        {{ message }}
+      </p>
+    </div>
+    {% endfor %} 
+  {% endif %}
   <main class="form-signin w-100 m-auto">
     <form method="POST">
 			{% csrf_token %}
@@ -62,15 +71,6 @@
       <button class="btn btn-dark w-100 py-2" type="submit">Login</button>
     </form>
   </main>
-  {% if messages %}
-    {% for message in messages %}
-    <div class="card w-50 my-5">
-      <p class="card-body text-center mb-0">
-        {{ message }}
-      </p>
-    </div>
-    {% endfor %} 
-  {% endif %}
 </div>
 
 {% endblock content %}

@@ -68,13 +68,11 @@ def logout_user(request):
 
 def show_landing_page(request):
     user = request.COOKIES.get('user', None)
-    last_login = request.COOKIES.get('last_login', None)
     
     context = {
       'name': 'Restu Ahmad Ar Ridho', # Nama kamu
       'class': 'PBP E', # Kelas PBP kamu
       'user' : user,
-      'last_login': last_login,
     }
 
     return render(request, "index.html", context)
