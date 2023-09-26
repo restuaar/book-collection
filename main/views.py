@@ -1,22 +1,18 @@
+import datetime
+
+from django.http import HttpResponseRedirect, HttpResponse
+from django.urls import reverse
+from django.core import serializers
 from django.shortcuts import render, redirect
 
-from django.http import HttpResponseRedirect
-from main.forms import ItemForm
-from django.urls import reverse
-
-from main.models import Item
-
-from django.http import HttpResponse
-from django.core import serializers
-
 from django.contrib import messages
-from django.contrib.auth.forms import UserCreationForm 
-
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import UserCreationForm 
 from django.contrib.auth.decorators import login_required
 
-import datetime
-# Create your views here.
+from main.forms import ItemForm
+from main.models import Item
+
 
 def register(request):
     form = UserCreationForm()
