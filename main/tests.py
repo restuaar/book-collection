@@ -1,6 +1,6 @@
 from django.test import TestCase, Client
 from main.models import Item
-# Create your tests here.
+
 
 class mainTest(TestCase):
     

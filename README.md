@@ -6,191 +6,266 @@
 
 # List README Tugas Sebelumnnya
 - [README TUGAS 2](./src/README/README_2.md)
+- [README TUGAS 3](./src/README/README_3.md)
 
 
-# Apa perbedaan antara form POST dan form GET dalam Django?
+# Apa Itu Django UserCreationForm, dan Jelaskan Apa Kelebihan dan Kekurangannya?
+Django `UserCreationForm` adalah sebuah _form_ bawaan (built-in form) yang disediakan oleh Django untuk memudahkan proses pembuatan akun (_registration_) pada _framework_ Django. _Form_ ini dirancang khusus untuk mengumpulkan data yang diperlukan untuk membuat akun pengguna seperti nama pengguna (`username`), kata sandi (`password1`), konfirmasi kata sandi (`password2`)
 
-|    **POST**   |    **GET**    |
-| :-----------: | :-----------: |
-| Data dikirim dalam _body_ permintaan HTTP, yang biasanya tidak terlihat oleh pengguna. Berguna ketika ingin mengirim data sensitif | Data akan disertakan dalam URL hal ini membuat data terlihat pada URL _browser_. Umumnya digunakan untuk permintaan pencarian atau ketika ingin berbagi URL yang mencakup parameter tertentu.  |
-| Biasanya digunakan ketika ingin mengirim data yang lebih besar atau lebih kompleks, seperti teks panjang, file, atau data yang rahasia.  | Cocok untuk data yang lebih kecil dan sederhana, seperti parameter pencarian atau pemfilteran data (_query_).  |
-| Data yang dikirim dengan metode POST tidak terlihat di URL, sehingga lebih aman untuk data sensitif. Selain itu, dapat mengamankan formulir POST dengan token CSRF untuk melindungi dari serangan Cross-Site Request Forgery (CSRF).  | Data yang dikirim dengan metode GET terlihat di URL, sehingga tidak cocok untuk data sensitif.  |
-| Permintaan POST tidak akan di-_cache_ oleh _browser_ atau _proxy server_ secara _default_ karena mereka dianggap mengubah data di _server_.  | Permintaan GET bisa saja di-_cache_ oleh _browser_ atau _proxy server_, yang berarti hasil pencarian atau tampilan halaman dapat disimpan dalam _cache_.  |
+|    **Kelebihan**   |    **Kekurangan**    |
+|    :-----------:   |    :-----------:     |
+| Sederhana dan bisa langsung dipakai dapat digunakan tanpa perlu banyak penyesuaian, sehingga bisa mempercepat dalam mengembangkan aplikasi. | Kurang fleksibel untuk memiliki kebutuhan yang sangat spesifik atau kompleks yang tidak dapat dipenuhi oleh form bawaan. |
+| Memiliki validasi bawaan untuk memastikan data yang dimasukkan oleh pengguna sesuai dengan persyaratan yang ditentukan. | Hanya memiliki tampilan standar yang mungkin tidak sesuai dengan desain UI khusus aplikasi. |
+|Memudahkan integrasi dengan sistem otentikasi Django, termasuk penyimpanan aman kata sandi.|---|
 
-# Apa perbedaan utama antara XML, JSON, dan HTML dalam konteks pengiriman data?
-|  **XML**  | **JSON**  | **HTML**  |
-| :---: | :---: | :---: |
-|**JSON** adalah singkatan dari JavaScript Object Notation. | **XML** adalah singkatan dari Extensible Markup Language. | **HTML** adalah singkatan dari Hypertext Markup Language.|
-| XML dirancang untuk menyimpan dan mengirimkan data serta menjaga struktur data yang kuat. Sering digunakan dalam konteks pertukaran data antara sistem yang berbeda atau penyimpanan data dalam format yang dapat diurai. | JSON awalnya dikembangkan untuk digunakan dengan JavaScript, tetapi sekarang merupakan format data yang populer untuk pertukaran data dalam aplikasi web.  | HTML adalah _hypertext_ yang digunakan untuk menggambarkan struktur dan tampilan halaman web. HTML bukan format pertukaran data, melainkan format untuk menampilkan data di web. |
-| XML menggunakan tag untuk mendefinisikan struktur data. Setiap elemen data dikelilingi oleh tag pembuka dan penutup yang membantu menjaga hierarki dan hubungan antara elemen-elemen data. 	 Perlu mengurai XML dengan pengurai XML. | JSON menggunakan format objek dan array untuk menyimpan data. Ini mirip dengan struktur data dalam JavaScript, yang membuatnya mudah diurai dan digunakan dalam kode JavaScript. | HTML menggunakan tag untuk menentukan elemen-elemen pada halaman web, seperti teks, gambar, hyperlink, formulir, dan banyak lagi. Memiliki struktur yang sangat berbeda dari XML dan JSON, karena tujuannya adalah untuk merender konten web. |
-| XML dirancang untuk dapat dibaca oleh mesin dan manusia, sehingga sering digunakan dalam berbagai aplikasi yang memerlukan interoperabilitas antara sistem yang berbeda. Sintaksis XML mengganti beberapa karakter untuk referensi entitas sehingga membuatnya menjadi lebih bertele-tele. | JSON mudah dibaca oleh mesin dan juga cukup mudah dibaca oleh manusia, meskipun tidak sejelas XML dalam hal hierarki.  | HTML dirancang untuk ditampilkan oleh browser web dan tidak memiliki tujuan untuk pertukaran data. Namun, HTML dapat menampilkan data dan meminta input melalui _tag input_ dan metodenya|
-|Harus mematikan DTD ketika bekerja dengan XML untuk memitigasi potensi risiko keamanan.|JSON lebih aman dibandingkan dengan XML. | --
+# Apa Perbedaan Antara Autentikasi dan Otorisasi dalam Konteks Django, dan Mengapa Keduanya Penting?
+Autentikasi (_Authentication_) adalah proses verifikasi identitas pengguna. Ini berarti memastikan bahwa pengguna yang mengakses aplikasi telah memberikan informasi yang sesuai untuk mengidentifikasi diri mereka, seperti _username_ dan _password_. Autentikasi dilakukan saat pengguna masuk (_login_) ke aplikasi.
 
-# Mengapa JSON sering digunakan dalam pertukaran data antara aplikasi web modern?
-JSON adalah format pertukaran data berbasis teks yang mengikuti sintaksis objek JavaScript. JSON sering digunakan dalam pertukaran data antara aplikasi web modern karena memiliki sejumlah keunggulan, yaitu:
-1. JSON memiliki format yang ringan sehingga menghasilkan ukuran data yang relatif kecil, yang memungkinkan transfer data yang lebih cepat antara server dan klien. Kecilnya ukuran data JSON adalah keuntungan utama saat beroperasi dengan perangkat berkecepatan rendah atau koneksi internet yang lambat.
-2. JSON menggunakan format objek dan array yang mirip dengan struktur data dalam JavaScript. Ini membuatnya mudah dibaca dan ditulis dalam kode. Dalam JavaScript, kita dapat mengurai (`parse`) dan menghasilkan (`stringify`) objek JSON dengan mudah menggunakan fungsi built-in.
-3. JSON tidak terkait dengan bahasa pemrograman tertentu. JSON dapat digunakan dengan berbagai bahasa pemrograman, tidak hanya JavaScript. Hal ini memungkinkan interaksi antara berbagai bahasa dalam ekosistem pengembangan web.
-4. Hampir semua browser web modern mendukung JSON. Memungkinkan klien web untuk dengan mudah berkomunikasi dengan server menggunakan JSON sebagai format pertukaran data.
-5. JSON sangat cocok dengan pendekatan gaya arsitektur API RESTful, yang sering digunakan dalam pengembangan web modern. API RESTful menggunakan HTTP request methods seperti `GET`, `POST`, `PUT`, `DELETE` untuk berinteraksi dengan sumber daya (_resource_) menggunakan JSON sebagai format pertukaran data standar.
-6. JSON biasanya mudah dikelola dalam kode karena strukturnya yang serupa dengan objek dan array dalam banyak bahasa pemrograman. Hal ini membuat pengolahan data JSON menjadi lebih sederhana.
+Otorisasi (_Authorization_) adalah proses menentukan siapa yang diizinkan atau tidak diizinkan setelah berhasil diautentikasi. Otorisasi adalah tentang mengontrol akses pengguna ke berbagai bagian atau fitur aplikasi berdasarkan hak akses yang dimilikinya. Dalam Django, otorisasi dapat diterapkan menggunakan berbagai cara, seperti decorator `@login_required` yang kita gunakan.
+
+Keduanya penting karena:
+
+- Autentikasi memastikan bahwa hanya pengguna yang sah yang memiliki akses ke aplikasi. Ini melindungi dari akses yang tidak sah atau penyalahgunaan oleh pengguna yang tidak berwenang.
+
+- Otorisasi mengontrol apa yang dapat dilakukan oleh pengguna yang telah diautentikasi. Ini memastikan bahwa pengguna hanya dapat mengakses bagian dari aplikasi yang sesuai dengan hak akses yang dimilikinya, dan mencegah penggunaan yang tidak sah terhadap fitur atau data tertentu.
+
+# Apa Itu Cookies dalam Konteks Aplikasi Web, dan Bagaimana Django Menggunakan Cookies untuk Mengelola Data Sesi Pengguna?
+Cookies adalah istilah untuk kumpulan informasi yang berisi _history_ dan aktivitas pengguna saat menelusuri sebuah website. Secara sederhana pengertian cookies adalah kumpulan data yang diterima dan disimpan di peramban web pengguna dari sebuah situs dan mengirimkan kembali ke situs yang dikunjungi. Cookies biasanya digunakan oleh aplikasi web untuk menyimpan informasi yang dapat digunakan di masa mendatang.
+
+Django menggunakan cookies untuk mengelola data sesi pengguna. Ketika seorang pengguna masuk (_login_) ke aplikasi web Django, sebuah cookie unik disimpan. Cookie ini berisi informasi yang mengidentifikasi sesi pengguna, seperti keadaan masuk (_login state_) dan pengaturan sesi. Pada Django dapat menggunakan seperti `request.COOKIES` atau `request.session`. Django menyediakan alat bawaan (_built-in tools_) untuk mengelola cookies dan data sesi pengguna dengan mudah.
+
+# Apakah Penggunaan Cookies Aman Secara Default dalam Pengembangan Web, atau Apakah Ada Risiko Potensial yang Harus Diwaspadai?
+Penggunaan cookies dalam pengembangan web memiliki sejumlah risiko yang perlu diwaspadai. Meskipun cookies adalah alat yang berguna untuk menyimpan data, mereka juga memiliki potensi masalah keamanan jika tidak dikelola dengan benar.
+
+Berikut adalah beberapa risiko potensial yang harus diwaspadai:
+- Pencurian Data: Cookies dapat menjadi target pencurian oleh pihak yang tidak berwenang. Jika cookies mengandung data sensitif seperti token otentikasi, identifikasi pengguna, atau informasi pribadi, pencurian cookies dapat memberikan akses ilegal ke akun pengguna.
+- Cookie Spoofing: Serangan cookie spoofing dapat terjadi jika pihak yang tidak berwenang mencoba memanipulasi atau memalsukan cookies. Ini dapat mengakibatkan penggunaan yang tidak sah terhadap akun pengguna.
+- Pelacakan Penggunaan: Cookies sering digunakan untuk melacak perilaku dan aktivitas pengguna di seluruh berbagai situs web. Sementara ini dapat membantu dalam analitik web, juga menimbulkan kekhawatiran privasi pengguna.
+- Cookies Klikjacking: Teknik klikjacking dapat digunakan untuk memaksa pengguna untuk melakukan tindakan yang tidak mereka sadari dengan memanipulasi elemen yang dapat di-klik di halaman web, termasuk cookies. Hal ini dapat mengarah ke tindakan yang tidak diinginkan atau penyalahgunaan
+- Kebocoran Informasi: Jika cookies tidak dienkripsi dengan benar, informasi yang disimpan di dalamnya dapat bocor jika penggunaan protokol yang tidak aman. Hal ini dapat mengakibatkan pengungkapan data sensitif.
 
 # Implementasi Setiap Step
-Sebelumnya, mengubah susunan templates dengan menggunakan `base.html` sebagai base html dan digunakan dalam `templates` pada direktori `main` dan susunan README.md. Mengubah beberapa kode pada `views.py` di direktori `main` pada _function_ `show_main` yang mem-_passing_ data yang sesuai jika belum terdapat item pada database dan juga pada _function_ `show_landing_page` yang menampilkan data Nama dan Kelas
-## Membuat Input `form` Untuk Menambahkan Objek Model
-1. Membuat berkas baru pada direktori `main` dengan nama `forms.py` untuk membuat struktur form agar sesuai dengan models `Item` yang telah kita buat. Kemudian isi dengan kode
-    ```python
-    from django.forms import ModelForm
-    from main.models import Item
 
-    class ItemForm(ModelForm):
-        class Meta:
-            model = Item
-            fields = ["name", "amount", "description"]
-    ```
-2. Pada `views.py` dalam direktori `main` kita import struktur form yang sudah dibuat dan beberapa _function_ dan _class_ untuk melakukan _redirect_ url dengan kode
-    ```python
-    from django.http import HttpResponseRedirect
-    from main.forms import ItemForm
-    from django.urls import reverse
-    ```
-3. Kemudian menambahkan _function_ baru untuk menampilkan `tambah_buku.html` yang akan dibuat dan menerima data dari method `POST` dengan kode
-    ```python
-    def create_book(request):
-    form = ItemForm(request.POST or None)
-
-    if form.is_valid() and request.method == "POST":
-        form.save()
-        return HttpResponseRedirect(reverse('main:show_main'))
-
-    return render(request, "tambah_buku.html")
-    ```
-4. Melakukan _routing_ di berkas `urls.py` di direktori `main` dengan meng-_import method_ `create_book` dari `views.py` dengan menambahkan kode
+## Mengimplementasikan Fungsi Registrasi, Login, dan Logout 
+### Implementasi Fungsi Registrasi
+1. Membuat _template_ untuk menampilkan _form_ untuk melakukan _register_ dengan membuat berkas baru dengan nama `register.html` pada direktori `main/templates` dan disesuaikan dengan kebutuhan.
+2. Membuka `views.py` pada direktori `main` dan menambahkan beberapa _import_ yang diperlukan dan membuat fungsi dengan nama `register` dengan kode
     ```python
     ...
-    from main.views import show_main, show_landing_page, create_book
+    from django.shortcuts import render, redirect
+    from django.contrib.auth.forms import UserCreationForm
+    from django.contrib import messages
+    ...
+
+    ...
+    def register(request):
+      form = UserCreationForm()
+
+      if request.method == "POST":
+          form = UserCreationForm(request.POST)
+          if form.is_valid():
+              form.save()
+              messages.success(request, 'Your account has been successfully created!')
+              return redirect('main:login')
+      context = {'form':form}
+      return render(request, 'register.html', context)
+    ...
+    ```
+3. Melakukan _routing_ untuk menampilkan _template_ yang sudah dibuat dengan membuka berkas `urls.py` pada direktori `main` dengan menambah kode _import_ dan _routing_-nya
+    ```python
+    ...
+    from main.views import show_main, show_landing_page, create_book, show_xml, show_json, show_xml_by_id, show_json_by_id, register
 
     ...
 
     urlpatterns = [
-      ...,
-      path('tambah_buku/', create_book, name='show_tambah_buku'),
+      ...
+      path('register/', register, name='register'),
       ...
     ]
     ```
-5. Membuat berkas HTML dengan nama `tambah_buku.html` pada direktori `main/templates` dengan kode yang tertera pada file tersebut.
 
-## Tambahkan 5 Fungsi Views Untuk Melihat Objek yang Sudah Ditambahkan dalam Format HTML, XML, JSON, XML by ID, dan JSON by ID.
-### Format HTML
-1. Dalam format html sudah dilakukan pada tugas 2 yaitu dengan membuat berkas html `main.html` untuk menampilkan data yang telah ditambahkan. 
-2. Membuat _function_ pada `views.py` di direktori mian dengan kode
+### Implementasi Fungsi Login
+1. Membuat _template_ untuk menampilkan _form_ untuk melakukan _login_ dengan membuat berkas baru dengan nama `login.html` pada direktori `main/templates` dan disesuaikan dengan kebutuhan.
+2. Membuka `views.py` pada direktori `main` untuk menambahkan fungsi untuk _login_ dan menambahkan retriksi terhadap akses halaman `main` dengan menambahkan kode
+    ```python
+    ...
+    from django.contrib.auth import authenticate, login
+    from django.contrib.auth.decorators import login_required
+
+    ...
+
+    def login_user(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            response = HttpResponseRedirect(reverse("main:show_main"))
+            return response
+        else:
+            messages.info(request, 'Sorry, incorrect username or password. Please try again.')
+    return render(request, 'login.html')
+
+    ...
+
+    @login_required(login_url='/login')
+    def show_main(request):
+      ...
+    ```
+3. Melakukan _routing_ untuk menampilkan _login_ dengan membuka berkas `urls.py` pada direktori `main` dengan menambah kode _import_ dan _routing_-nya
+    ```python
+    ...
+    from main.views import show_main, show_landing_page, create_book, show_xml, show_json, show_xml_by_id, show_json_by_id, register, login_user
+
+    ...
+
+    urlpatterns = [
+      ...
+      path('login/', login_user, name='login'),
+      ...
+    ]
+    ```
+
+### Implementasi Fungsi Logout
+1. Membuat _button_ tambahan pada navigasi pada setiap berkas `templates` yang perlu ditambahkan seperti pada `main.html` juga `index.html` dan `tambah_buku.html` ketika _user_ sudah melakukan _login_ dengan _link_ yang sesuai dengan _routing_
+2.  Membuka `views.py` pada direktori `main` untuk menambahkan fungsi untuk _logout_ dengan menambahkan kode
+    ```python
+    ...
+    from django.contrib.auth import logout
+
+    ...
+
+    def logout_user(request):
+      logout(request)
+      return redirect('main:login')
+    
+    ...
+    ```
+3. elakukan _routing_ untuk dapat melakukan fungsi pada `views.py` dengan baik dengan menambahkan kode
+    ```python
+        ...
+    from main.views import show_main, show_landing_page, create_book, show_xml, show_json, show_xml_by_id, show_json_by_id, register, login_user, logout_user
+
+    ...
+
+    urlpatterns = [
+      ...
+      path('logout/', logout_user, name='logout'),
+      ...
+    ]
+    ```
+
+## Membuat Dua Akun Pengguna dengan Masing-Masing Tiga Dummy Data Menggunakan Model yang Telah Dibuat
+1. Melakukan pembersihan database sebelumnya dengan menjalankan `python manage.py flush` dengan `cmd` pada _root_ direktori.
+2. Menjalankan _virtual environment_ terlebih dahulu dan menyalakan aplikasi dengan `python manage.py runserver`.
+3. Melakukan registrasi pada url `http://127.0.0.1:8000/register` sebanyak dua kali untuk mendapatkan dua akun yang akan digunakan untuk menambahkan _dummy_ data
+4. Pada masing-masing akun dilakukan login pada url `http://127.0.0.1:8000/login` dan melakukan tambah buku pada url `http://127.0.0.1:8000/tambah_buku` sebanyak tiga kali.
+
+## Menghubungkan model Item dengan User
+1. Membuka `models.py` pada direktori `main` dan menambahkan kode untuk mengimpor model `User`
+    ```python
+    ...
+    from django.contrib.auth.models import User
+    ...
+    ```
+2. Pada model `Item` yang sudah dibuat tambahkan _field_ `user` untuk mendapatkan relasi antar user dan _item_ yang dimilikinya dengan menambahkan kode
+    ```python
+    class Item(models.Model):
+      user = models.ForeignKey(User, on_delete=models.CASCADE)
+      ...
+    ```
+3. Buka `views.py` pada direktori `main` ubah kode pada fungsi `create_book` agar setiap buku yang ditambahkan sesuai dengan user yang sedang _login_ dengan kode
+    ```python
+    ...
+    
+    def create_book(request):
+      form = ItemForm(request.POST or None)
+
+      if form.is_valid() and request.method == "POST":
+          item = form.save(commit=False)
+          item.user = request.user
+          item.save()
+          request.session["new_item"] = request.POST
+          return HttpResponseRedirect(reverse('main:show_main'))
+
+      return render(request, "tambah_buku.html")
+
+    ...
+    ```
+4. Mengubah fungsi `show_main` agar hanya menampilkan _item_ yang sesuai dengan kode
     ```python
     def show_main(request):
-    Items = Item.objects.all()
+      Items = Item.objects.filter(user=request.user)
+      new_item = request.session.get('new_item', None)
+      
+      if 'new_item' in request.session:
+          del request.session["new_item"]
 
-    if ((Items.count() == 0)):
       context = {
-          'data' : default_book
+          'name': request.user.username,
+          'data' : Items,
+          'new_item' : new_item
       }
-    else:
+
+      return render(request, "main.html", context)
+    ```
+
+# Menampilkan Detail Informasi Pengguna yang Sedang _Logged In_ dan Menerapkan `Cookies`
+1. Membuat tempat tambahan pada _templates_ untuk menampilkan siapa yang sedang _login_ dan _last login_ dengan melakukan _conditional rendering_ dengan mengambil `cookies` yang disimpan.
+2. Menyimpan siapa yang sedang _login_ dan _last login_ pada berkas `views.py` pada direktori `main` dengan menambahkan kode pada fungsi `login_user`.
+    ```python
+      ...
+      if user is not None:
+          login(request, user)
+          response = HttpResponseRedirect(reverse("main:show_main"))
+          response.set_cookie('user', user)
+          response.set_cookie('last_login', str(datetime.datetime.now().strftime('%d-%m-%Y %H:%M')))
+          return response
+      ...
+    ```
+3. Pada fungsi `show_landing_page` dan `show_main` ditambahkan variabel untuk menampilkan pada _template_ dalam variabel `context` dengan kode.
+    ```python
+    def show_landing_page:
+      user = request.COOKIES.get('user', None)
+      
       context = {
-          'data' : Items
+          'name': 'Restu Ahmad Ar Ridho', # Nama kamu
+          'class': 'PBP E', # Kelas PBP kamu
+          'user' : user,
       }
 
-    return render(request, "main.html", context)
-    ```
-    > Penjelasan singkat jika Item kosong maka akan menggunakan item default sebagai _dummy_ jika ada maka menggunakan data dari Item
+    @login_required(login_url='/login')
+    def show_main(request):
+        Items = Item.objects.filter(user=request.user)
+        new_item = request.session.get('new_item', None)
+        
+        if 'new_item' in request.session:
+            del request.session["new_item"]
 
-### Format XML dan XML by ID
-1. Membuat _function_ baru dalam berkas `views.py` dalam direktori `main` dengan nama `show_xml` untuk menampilkan format XML dan `show_xml_by_id` untuk menampilkan format XML dengan ID tertentu.
-2. Untuk `show_xml` yang menampilkan semua data maka ditambahkan kode untuk mengambil data dengan `Item.objects.all()` dan untuk `show_xml_by_id` yang menampilkan data dengan ID tertentu ditambahkan kode dengan melakukan filter yaitu dengan `Item.objects.filter(pk=id)`
-3. Kemudian data akan diubah menjadi format XML dengan `serializers.serialize("xml",data)` sehingga menampilkan format XML. Kurang lebih kode akan menjadi
+        context = {
+            'name': request.user.username,
+            'data' : Items,
+            'new_item' : new_item,
+            'last_login': request.COOKIES['last_login'],
+            'user' : request.COOKIES['user']
+        }
+
+        return render(request, "main.html", context)
+    ```
+
+4. Kemudian pada fungsi `logout_user` ditambahkan kode untuk menghapus cookies user yang _login_ dengan menambahkan kode
     ```python
-    def show_xml(request):
-      data = Item.objects.all()
-      return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
-
-    def show_xml_by_id(request, id):
-      data = Item.objects.filter(pk=id)
-      return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
+    def logout_user(request):
+        logout(request)
+        response = HttpResponseRedirect(reverse('main:show_landing_page'))
+        response.delete_cookie('last_login')
+        response.delete_cookie('user')
+        return response
     ```
-
-### Format JSON dan JSON by ID
-1. Kurang lebih sama dengan **Format XML dan XML by ID** namun ada nama fungsi `show_json` untuk menampilkan format JSON dan `show_json` untuk menampilkan format JSON by ID. Sehingga kode pada `views.py` dalam direktori `main` ditambahkan dengan
-    ```python
-    def show_json(request):
-      data = Item.objects.all()
-      return HttpResponse(serializers.serialize("json", data), content_type="application/json")
-
-    def show_json_by_id(request, id):
-      data = Item.objects.filter(pk=id)
-      return HttpResponse(serializers.serialize("json", data), content_type="application/json")
-    ```
-
-## Membuat _Routing_ URL untuk Masing-Masing Views yang Telah Ditambahkan
-1. Pada format HTML membuat _routing_ agar dapat ditampilkan dengan membuka berkas `urls.py` pada direktori `main` dengan menambahkan kode
-    ```python
-    urlpatterns = [
-      ...
-      path('main/', show_main, name='show_main'),
-      ...
-    ]
-    ```
-    **Penjelasan _routing_**
-    - `http://127.0.0.1:8000/main` akan menampilkan berkas HTML untuk menampilkan buku yang telah ditambahkan
-2. Melakukan _routing_ agar _user_ dapat mengakses melalui url dengan membuka berkas `urls.py` pada direktori `main` dan meng-_import_ _function_ yang telah dibuat dan menambah _routing_ dengan kode
-    ```python
-    ...
-    from main.views import show_main, show_landing_page, create_book, show_xml show_xml_by_id
-
-    ...
-
-    urlpatterns = [
-        ...
-        path('xml/', show_xml, name='show_xml'),
-        path('xml/<int:id>/', show_xml_by_id, name='show_xml_by_id')
-        ...
-    ]
-    ```
-    **Penjelasan _routing_**
-    - `http://127.0.0.1:8000/xml` akan menampilkan format XML
-    - `http://127.0.0.1:8000/xml/[id]` akan menampilkan format XML dengan ID [id]
-3. Melakukan _routing_ agar _user_ dapat mengakses melalui url dengan membuka berkas `urls.py` pada direktori `main` dan meng-_import_ _function_ yang telah dibuat dan menambah _routing_ dengan kode
-    ```python
-    ...
-    from main.views import show_main, show_landing_page, create_book, show_xml, show_json, show_xml_by_id, show_json_by_id
-
-    ...
-
-    urlpatterns = [
-        ...
-        path('json/', show_json, name='show_json'), 
-        path('json/<int:id>/', show_json_by_id, name='show_json_by_id'), 
-        ...
-    ]
-    ```
-    **Penjelasan _routing_**
-    - `http://127.0.0.1:8000/json` akan menampilkan format JSON
-    - `http://127.0.0.1:8000/json/[id]` akan menampilkan format JSON dengan ID [id]
-
-## Mengakses Kelima URL yand Telah Dibuat Menggunakan Postman
-### HTML
-![Result HTML using Postman](./src/img/HTMLPostman.png)
-> Menampilkan pada HTML yang memuat data
-
-### XML dan XML by ID
-#### XML
-![Result XML using Postman](./src/img/XMLPostman.png)
-#### XML by ID
-![Result XML by ID using Postman](./src/img/XMLbyIDPostman.png)
-
-### JSON dan JSON by ID
-#### JSON
-![Result JSON using Postman](./src/img/JSONPostman.png)
-#### JSON by ID
-![Result JSON by ID using Postman](./src/img/JSONbyIDPostman.png)
 
 # BONUS
-1. Membuat kondisional _rendering_ pada berkas html yaitu `main.html` pada direktori `main/templates`.
-2. Membuka berkas `views.py` pada direktori `main` dan menambahkan kode untuk menyimpan hasil form yang telah di-_input_ kedalam _session_ agar dapat di-_passing_ dari _function_ `create_book` ke `show_main` sehingga dapat menampilkan buku yang telah ditambahkan.
-3. Pada _function_ `create_book` saya menggunakan _session_ untuk menyimpan data `name` dan `amount` dan pada _function_ `show_main` dilakukan pengecekan terhadap variabel yang telah disimpan didalam _session_, jika ada maka dikirimkan data `name` dan `amount` ke bagian `context` saat _render_ dan jika tidak ada maka hanya mengirimkan string kosong agar dapat di-_handle_ oleh kondisional _rendering_ pada berkas HTML.
+Pada aplikasi yang sudah dibuat tersebut sudah menerapkan fitur:
+- Tombol dan fungsi untuk menambahkan amount suatu objek sebanyak satu dan tombol untuk mengurangi jumlah stok suatu objek sebanyak satu.
+- Tambahkan tombol dan fungsi untuk menghapus suatu objek dari inventori.

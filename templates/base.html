@@ -20,218 +20,102 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
       rel="stylesheet"
     />
-    <title>Book Collection</title>
+    <title>{% block title %} {% endblock title %}</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
     <style>
       * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        color: #ffffff;
-      }
-
-      body {
         font-family: "Poppins", sans-serif;
-        background-color: #e3e3e6;
       }
-
-      .nav-bar {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
-        align-items: center;
-        height: 3.5rem;
-        padding: 0 1rem;
-        background-color: #000000;
+      .h1 {
+        font-size: 1.7rem;
       }
-
-      .logo {
-        display: flex;
-        align-items: center;
-        gap: 0.8rem;
-      }
-
-      a {
-        text-decoration: none;
-        font-weight: 600;
-      }
-
-      .logo span {
-        font-size: 1.8rem;
-        margin-top: -6px;
-      }
-
-      .header {
-        justify-content: center;
-        text-align: center;
-        font-size: 2rem;
-      }
-
-      .links {
-        justify-self: end;
-        display: flex;
-        gap: 1rem;
-      }
-
-      .links a {
-        border-bottom: 3px solid #ffffff;
-      }
-
-      .notif-buku-baru {
-        margin-top: 1rem;
-        margin-bottom: -1rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-
-      .notif-buku-baru > p {
-        text-align: center;
-        color: #ffffff;
-        background-color: #000000;
-        border-radius: 0.8rem;
-        padding: 0.5rem 1rem;
-        box-shadow: 1px 6px 24px -10px rgba(0, 0, 0, 0.39);
-      }
-
-      .container {
-        margin: 2rem 10rem;
-        display: flex;
-        gap: 2rem;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: flex-start;
-        min-height: calc(100vh - 11rem);
-      }
-
-      .card {
-        width: 17rem;
-        background-color: #000000;
-        border-radius: 3px;
-        overflow: auto;
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        justify-content: start;
-        align-items: center;
-        box-shadow: 1px 6px 24px -10px rgba(0, 0, 0, 0.39);
-        position: relative;
-        overflow: hidden;
-        height: 22rem;
-      }
-
-      .card h2 {
-        margin-top: 3px;
-        border-bottom: 2px solid #fffffe;
-      }
-
-      .card p {
-        color: #a7a9be;
-        padding: 0.9rem;
-        font-size: small;
-        text-align: justify;
-      }
-
-      .card > .amount {
-        position: absolute;
-        background-color: red;
-        bottom: -0.4rem;
-        right: -0.4rem;
-        display: flex;
-        justify-content: start;
-        padding-left: 0.6rem;
-        align-items: center;
-        border-radius: 50%;
-        height: 2rem;
-        aspect-ratio: 1;
-        font-weight: bold;
-      }
-
-      .hero {
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 1rem;
-        height: calc(100vh - 7rem);
-      }
-
-      .hero h1 {
-        color: #000000;
-        font-size: 2.5rem;
-      }
-
-      .hero p {
-        font-size: 1rem;
-        color: #666;
-        width: 40rem;
-        margin-top: -1rem;
-      }
-
-      .cta-button {
-        display: inline-block;
-        padding: 0.7rem 1.5rem;
-        background-color: #333;
-        text-decoration: none;
-        border-radius: 0.4rem;
-        cursor: pointer;
-        color: #ffffff;
-        font-weight: bolder;
-      }
-
-      .heading-add {
-        text-align: center;
-        margin: 1rem 0;
-        color: #000000;
-      }
-
-      form {
-        height: calc(100vh - 11.3rem);
-        margin: 0 auto;
-        padding: 20px;
-      }
-
-      label {
-        display: block;
-        color: #000000;
-      }
-
-      input,
-      textarea {
-        width: 100%;
-        padding: 0.9rem;
-        margin-bottom: 0.5rem;
-        border: 1px solid #ccc;
-        border-radius: 3px;
-        color: #000000;
-        resize: none;
-      }
-
-      footer {
-        text-align: center;
-        padding: 1rem;
-        background-color: #000000;
-      }
-    </style>
+      </style>
+    {% block style %} {% endblock style %}
   </head>
-  <body>
-    <nav class="nav-bar">
-      <div class="logo">
-        <span role="img">📖</span>
-        <a href="/">PBP Ganjil 23/24</a>
-      </div>
-      <div>
-        <h1 class="header">BOOK COLLECTION</h1>
-      </div>
-      <div class="links">
-        <a href="/">Home</a>
-        <a href="/tambah_buku">Tambah Buku</a>
+  <body class="d-flex flex-column min-vh-100">
+      <nav
+      class="navbar navbar-expand bg-dark border-bottom border-body navbar-dark"
+    >
+      <div class="container-fluid">
+        <a
+          class="navbar-brand mb-0 h2 col fw-bold"
+          href="{% url 'main:show_landing_page' %}"
+          ><span role="img">📖</span>PBP Ganjil 23/24</a
+        >
+        <div class="col justify-content-center">
+          <p class="navbar-brand mb-0 h1 text-center fw-bold">BOOK COLLECTION</p>
+        </div>
+        <div class="col">
+          <ul class="navbar-nav container-fluid justify-content-end">
+            {% block links %}
+        
+            {% if user != AnonymousUser %}
+              <li class="nav-item">
+                <a
+                class="nav-link active"
+                href="{% url 'main:logout' %}"
+                ><span class="border-bottom border-light">Logout</span></a
+                >
+              </li>
+              <li class="nav-item">
+                <p
+                class="navbar-text mb-0"
+                ><span class="text-light me-2 ps-2 border-start border-light">Welcome, {{ user }}</span>           
+              </p>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link active"
+                  href="{% url 'main:show_main' %}"
+                  ><span class="border-bottom border-light">KoleksiKu</span></a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link active"
+                  href="{% url 'main:show_tambah_buku' %}"
+                  ><span class="border-bottom border-light">Tambah Buku</span></a
+                >
+              </li>
+            {% else %}
+            <li class="nav-item">
+              <p
+                class="navbar-text mb-0"
+                ><span class="text-light">Welcome to Book Collection</span>
+              </p>
+            </li>
+            {% endif %}
+            {% endblock links %}
+          </ul>
+          {% if last_login %}
+            <div class="container justify-content-end  text-end">
+              <small class="text-light me-2">Last Login: {{ last_login }}</small>
+            </div>
+          {% endif %}
+        </div>
       </div>
     </nav>
 
     {% block content %} {% endblock content %}
 
-    <footer>
-      <p>&copy; 2023 Restu Ahmad Ar Ridho</p>
-    </footer>
-  </body>
+      <div class="container-fluid bg-dark mt-auto">
+        <footer class="d-flex justify-content-center align-items-center py-3 m-0">
+          <div class="col-md-4 d-flex align-items-center justify-content-center">
+            <p class="mb-3 mb-md-0 text-light">&copy; 2023 Restu Ahmad Ar Ridho</p>
+          </div>
+        </footer>
+      </div>
+      
+    </div>
+      <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+      ></script>
+    </body>
 </html>
