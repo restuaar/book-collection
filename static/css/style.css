@@ -56,3 +56,7 @@ tr {
   width: 40%;
   margin: auto;
 }
+
+.buku:last-child .bg-dark{
+  background-color: #e17055!important;
+}
