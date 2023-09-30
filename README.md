@@ -38,50 +38,38 @@
 
 ## Jelaskan HTML5 Tag yang Kamu Ketahui
 
+|       **Tag**      |    **Penjelasan**    |
+|    :-----------:   |    :-----------:     |
+|  `<html>` |  Ini adalah tag utama dalam setiap dokumen HTML dan digunakan untuk mengelompokkan semua elemen HTML dalam satu dokumen. Semua elemen HTML harus berada di dalam tag |
+| `<head>` | Digunakan untuk mengandung informasi tentang dokumen HTML, seperti metadata, tautan ke file eksternal (CSS, JavaScript), dan judul halaman. Ini adalah bagian yang tidak ditampilkan secara langsung pada halaman web tetapi memberikan informasi penting tentang halaman.|
+| `<body>` | Digunakan untuk mengandung konten utama yang akan ditampilkan pada halaman web, seperti teks, gambar, tautan, dan elemen-elemen HTML lainnya. Bagian yang akan dilihat oleh pengguna saat mereka mengunjungi halaman web. |
+| `<header>` | Digunakan untuk mendefinisikan bagian atas atau kepala dari sebuah dokumen atau bagian halaman web. Ini biasanya berisi elemen-elemen seperti judul halaman, logo, dan menu navigasi. |
+| `<nav>` | Digunakan untuk mendefinisikan bagian navigasi dalam sebuah dokumen atau halaman web. |
+| `<section>` | Digunakan untuk mengelompokkan konten yang memiliki tema atau topik tertentu dalam sebuah dokumen atau halaman web. Ini membantu dalam mengorganisasi halaman web menjadi bagian-bagian yang lebih terstruktur. |
+| `<article>` | Digunakan untuk mengelompokkan konten yang berdiri sendiri dan dapat dipublikasikan secara independen. Ini cocok untuk konten seperti berita, posting blog, atau artikel. |
+| `<aside>` | Digunakan untuk mendefinisikan konten samping yang sering digunakan untuk elemen-elemen seperti iklan, daftar tautan terkait, atau konten tambahan yang tidak terkait langsung dengan konten utama. |
+| `<main>` | Digunakan untuk mengidentifikasi konten utama dari halaman web. Ini membantu mesin pencari dan pembaca layar untuk mengenali bagian utama dari konten halaman. |
+| `<footer>` | Digunakan untuk mendefinisikan bagian bawah atau footer dari dokumen atau halaman web. Biasanya, ini berisi informasi kontak, tautan ke halaman terkait, atau hak cipta. |
 
-## **C. Perbedaan Margin dan _Padding_**
 
-![COBA](/photos/marginpadding.png)
+# Perbedaan _Margin_ dan _Padding_
+
 | Margin | Padding |
-| --- | --- |
-| Mengosongkan area di sekitar border (transparan) | Mengosongkan area di sekitar konten (transparan) |
-| Ruang luar suatu elemen yaitu margin yang merupakan ruang di luar batas | Ruang dalam suatu elemen padding yaitu ruang dalam batas elemen |
+| :---: | :---: |
+| Jarak antara elemen HTML dengan elemen-elemen lain di sekitarnya | Jarak antara batas elemen HTML dan kontennya |
+| Tidak memiliki warna latar belakang, dan biasanya digunakan untuk mengatur ruang antara elemen-elemen | Memiliki warna latar belakang yang sama dengan elemen itu sendiri, sehingga mempengaruhi latar belakang elemen tersebut |
 | Dapat berupa angka negatif atau float | Tidak boleh ada nilai-nilai negatif |
 | Mengatur margin menjadi otomatis | Tidak dapat mengatur padding menjadi otomatis |
-| Penataan style elemen seperti warna backgorund tidak memengaruhi margin | Padding dipengaruhi style suatu elemen seperti background |
 
-<br>
 
-Source:
+# Perbedaan dan Penggunaan _Framework_ CSS Tailwind serta Bootstrap
 
-- https://www.geeksforgeeks.org/css-padding-vs-margin/
-  <br>
+| Tailwind | Bootstrap |
+| :---: | :---: |
+| Tailwind memungkinkan kita untuk membuat desain yang sangat kustom, karena kita menggabungkan kelas-kelas yang sudah ada untuk membuat tampilan yang unik sesuai dengan kebutuhan. | Bootstrap adalah framework yang sangat lengkap dan dilengkapi dengan berbagai komponen UI yang sudah jadi, seperti tombol, formulir, navigasi, dan banyak lagi. Kita dapat menggunakannya tanpa harus menulis banyak kode kustom |
+| memerlukan waktu lebih lama untuk dipelajari karena Anda harus memahami kelas-kelas yang ada dan bagaimana cara menggabungkannya dengan baik | Lebih mudah dipelajari untuk pemula karena dapat menggunakannya dengan mengikuti dokumentasi dan menambahkan kelas-kelas yang sudah ada |
+| Lebih ringan secara default karena hanya menggabungkan kelas-kelas yang benar-benar kita gunakan | Menghasilkan tampilan yang lebih konsisten diseluruh proyek karena memakai komponen yang sudah didefinisikan|
+| Mengadopsi pendekatan "_utility-first_" yang berarti membangun tampilan dengan menambahkan kelas langsung ke elemen HTML. Ini memberikan kontrol yang tinggi, tetapi beberapa orang mungkin menemukan kodenya terlihat lebih "berantakan" karena banyak kelas | Meskipun Bootstrap mendukung kustomisasi, terkadang lebih sulit untuk mengubah tampilan komponen secara drastis dibandingkan dengan Tailwind. Kita mungkin perlu menulis lebih banyak kode tambahan untuk mencapai tampilan yang sangat berbeda. |
 
-## **D. Perbedaan dan Penggunaan framework CSS Tailwind serta Bootstrap**
-
-| Tailwind                                                                                                                                                                  | Bootstrap                                                                                                               |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| Membangun tampilan dengan menggabungkan class-class utilitas yang telah didefinisikan sebelumnya                                                                          | Menggunakan style dan komponen yang sudah didefinisikan, memiliki tampilan yang sudah jadi dan dapat digunakan langsung |
-| Memiliki file CSS yang lebih kecil dan memuat class-class utilitas yang ada                                                                                               | Memiliki file CSS yang lebih besar karena termasuk banyak komponen yang telah didefinisikan                             |
-| Memberikan fleksibilitas dan adaptabilitas tinggi terhadap proyek                                                                                                         | Menghasilkan tampilan yang lebih konsisten di seluruh proyek karena memakai komponen yang sudah didefinisikan           |
-| Memiliki pembelajaran lebih curam karena perlu pemahaman terhadap class-class utilitas yang tersedia dan cara menggabungkannya untuk mencapai tampilan yang kita inginkan | Memiliki pembelajaran yang lebih cepat untuk pemula karena dapat mulai dengan komponen yang sudah didefinisikan         |
-
-<br>
-
-Kapan sebaiknya kita menggunakan Bootstrap daripada Tailwind, dan sebaliknya?
-
-- **_Bootsrap:_**
-
-  - Apabila ingin membangun situs web dengan cepat.
-  -
-
-- **_Tailwind:_**
-  - dsdsdsdsdsdsdss
-
-Source:
-
-- https://www.tutorialspoint.com/tailwind-css-vs-bootstrap
-- https://pbp-fasilkom-ui.github.io/ganjil-2024/docs/tutorial-4
-  <br>
-
-## **E. BONUS TUGAS 5**
+# BONUS
+Membuat berkas `static` untuk menampung berkas CSS tambahan kemudian ditambahkan `pseudo selector` yaitu `:last-child` untuk memilih data paling terkahir yang ditampilkan _template_
