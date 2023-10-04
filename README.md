@@ -71,5 +71,49 @@
 | Lebih ringan secara default karena hanya menggabungkan kelas-kelas yang benar-benar kita gunakan | Menghasilkan tampilan yang lebih konsisten diseluruh proyek karena memakai komponen yang sudah didefinisikan|
 | Mengadopsi pendekatan "_utility-first_" yang berarti membangun tampilan dengan menambahkan kelas langsung ke elemen HTML. Ini memberikan kontrol yang tinggi, tetapi beberapa orang mungkin menemukan kodenya terlihat lebih "berantakan" karena banyak kelas | Meskipun Bootstrap mendukung kustomisasi, terkadang lebih sulit untuk mengubah tampilan komponen secara drastis dibandingkan dengan Tailwind. Kita mungkin perlu menulis lebih banyak kode tambahan untuk mencapai tampilan yang sangat berbeda. |
 
+# Implementasi Setiap Step
+  1. Saya menggunakan Bootstrap dan menggunakan file static untuk melakukan kostumisasi terhadap _framework_ Bootstrap.
+  2. Untuk menggunakan Bootstrap dengan menambahkan tag `link` untuk menghubungkan dengan CDN Bootstrap pada berkas `base.html` pada folder `templates` di root.
+    ```html
+    <head>
+      ...
+      <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+        crossorigin="anonymous"
+      />
+      ...
+    </head>
+    <body>
+    ...
+      <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"
+      ></script>
+    </body>
+    ```
+  3. Menambahkan kode untuk menghubungkan folder `static` di root agar bisa menggunakan berkas CSS Eksternal dengan kode pada berkas `settings.py` pada folder `book_collection`
+    ```python
+      # Static files (CSS, JavaScript, Images)
+      # https://docs.djangoproject.com/en/4.2/howto/static-files/
+
+      STATIC_URL = 'static/'
+
+      STATICFILES_DIRS = [
+          os.path.join(BASE_DIR, 'static')
+      ]
+
+      STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    ```
+  4. Membuat berkas CSS didalam folder `static` dan menambahkan tag `link` pada `base.html` untuk menghubungkan berkas CSS eksternal dibawah `link` Bootstrap agar lebih mementingkan berkas CSS eksternal.
+    ```html
+    <head>
+      ...
+      <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css" />
+    </head>
+    ```
+  5. Melakukan _style_ terhadap berkas-berkas html yang diperlukan
 # BONUS
 Membuat berkas `static` untuk menampung berkas CSS tambahan kemudian ditambahkan `pseudo selector` yaitu `:last-child` untuk memilih data paling terkahir yang ditampilkan _template_
