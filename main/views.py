@@ -24,11 +24,17 @@ def add_item_ajax(request):
         user = request.user
 
         new_item = Item(name=name, amount=amount, description=description, user=user)
-        # new_item.save()
+        new_item.save()
 
         return HttpResponse(f"Buku {name} dengan jumlah {amount} telah ditambahkan", status=201)
 
     return HttpResponseNotFound()
+
+@csrf_exempt
+def delete_item_ajax(request, id = None):
+    item = Item.objects.get(pk=id)
+    item.delete()
+    return HttpResponse("DELETED",status=200)
 
 def get_item_json(request):
     Items = Item.objects.filter(user=request.user)
@@ -91,12 +97,6 @@ def show_main(request):
     }
 
     return render(request, "main.html", context)
-
-
-def delete_item(request, id = None):
-    item = Item.objects.get(pk=id)
-    item.delete()
-    return redirect('main:show_main')
     
 def add_stock(request, id = None):
     item = Item.objects.get(pk=id)
