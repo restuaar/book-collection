@@ -4,7 +4,7 @@ from main.views import show_main, show_landing_page, show_xml, show_json, show_x
 
 app_name = 'main'
 
-    # path('tambah_buku/', create_book, name='show_tambah_buku'),
+
 urlpatterns = [
     path('', show_landing_page, name='show_landing_page'),
     path('main/', show_main, name='show_main'),

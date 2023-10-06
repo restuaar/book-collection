@@ -24,9 +24,9 @@ def add_item_ajax(request):
         user = request.user
 
         new_item = Item(name=name, amount=amount, description=description, user=user)
-        new_item.save()
+        # new_item.save()
 
-        return HttpResponse(b"CREATED", status=201)
+        return HttpResponse(f"Buku {name} dengan jumlah {amount} telah ditambahkan", status=201)
 
     return HttpResponseNotFound()
 
@@ -92,17 +92,6 @@ def show_main(request):
 
     return render(request, "main.html", context)
 
-# def create_book(request):
-#     form = ItemForm(request.POST or None)
-
-#     if form.is_valid() and request.method == "POST":
-#         item = form.save(commit=False)
-#         item.user = request.user
-#         item.save()
-#         request.session["new_item"] = request.POST
-#         return HttpResponseRedirect(reverse('main:show_main'))
-
-#     return render(request, "tambah_buku.html")
 
 def delete_item(request, id = None):
     item = Item.objects.get(pk=id)
