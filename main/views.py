@@ -22,10 +22,9 @@ def add_item_ajax(request):
         amount = request.POST.get("amount")
         description = request.POST.get("description")
         user = request.user
-        request.session["new_item"] = request.POST
 
         new_item = Item(name=name, amount=amount, description=description, user=user)
-        # new_item.save()
+        new_item.save()
 
         return HttpResponse(b"CREATED", status=201)
 
@@ -83,15 +82,10 @@ def show_landing_page(request):
 @login_required(login_url='/login')
 def show_main(request):
     Items = Item.objects.filter(user=request.user)
-    new_item = request.session.get('new_item', None)
-    
-    if 'new_item' in request.session:
-        del request.session["new_item"]
 
     context = {
         'name': request.user.username,
         'data' : Items,
-        'new_item' : new_item,
         'last_login': request.COOKIES['last_login'],
         'user' : request.COOKIES['user']
     }

@@ -37,14 +37,11 @@
 
 {% block content %}
 <div class="album pb-5 pt-3">
-  {% if new_item %}
-  <div class="card w-50 mb-3 mx-auto new-book-notif">
-    <p class="card-body text-center mb-0">
-      Buku {{ new_item.name }} dengan jumlah {{ new_item.amount }} telah
-      ditambahkan
+  <div class="card w-50 mb-3 mx-auto container-notif-buku-baru">
+    <p class="card-body text-center mb-0 notif-buku-baru">
+      <!-- Notif buku baru -->
     </p>
   </div>
-  {% endif %}
   <div class="container">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 bookshelf">
       <!-- Tempat Buku -->
