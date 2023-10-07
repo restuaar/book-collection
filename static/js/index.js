@@ -1,9 +1,9 @@
-async function getProducts() {
-  return fetch("/get-product").then((res) => res.json());
+async function getItems() {
+  return fetch("/get-items").then((res) => res.json());
 }
 
-async function refreshProducts() {
-  const items = await getProducts();
+async function refreshItems() {
+  const items = await getItems();
   let stringAdd = "";
 
   items.forEach((item) => {
@@ -26,7 +26,7 @@ function addItem() {
         $(".container-notif-buku-baru").hide();
       },3000)
     });
-    refreshProducts();
+    refreshItems();
   }).catch(err => {
     console.log(err);
     alert("Gagal menambah item.");
@@ -46,7 +46,7 @@ function deleteItem(id) {
       'Content-type': 'application/json; charset=UTF-8',
     },
   }).then(res => {
-    refreshProducts();
+    refreshItems();
     $(".container-notif-buku-baru").hide();
   }).catch(err => {
     console.log(err);
@@ -76,7 +76,7 @@ function addStock(id) {
       'Content-type': 'application/json; charset=UTF-8',
     },
   }).then(res => {
-    refreshProducts();
+    refreshItems();
   }).catch(err => {
     console.log(err);
     alert("Gagal menambah stock item.");
@@ -93,7 +93,7 @@ function subStock(id) {
       'Content-type': 'application/json; charset=UTF-8',
     },
   }).then(res => {
-    refreshProducts();
+    refreshItems();
   }).catch(err => {
     console.log(err);
     alert("Gagal mengurangi stock item.");
@@ -103,7 +103,7 @@ function subStock(id) {
 
 if (window.location.href.indexOf("main") != -1) {
   $(".container-notif-buku-baru").hide();
-  refreshProducts();
+  refreshItems();
 }
 
 $("#button_add").click(addItem);

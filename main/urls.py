@@ -12,7 +12,7 @@ urlpatterns = [
     path('login/', login_user, name='login'),
     path('logout/', logout_user, name='logout'),
 
-    path('get-product/', get_item_json, name='get_item_json'),
+    path('get-items/', get_item_json, name='get_item_json'),
     path('create-ajax/', add_item_ajax, name='create_ajax'),
     path('delete-ajax/', delete_item_ajax, name='delete_ajax'),
     path('add-stock/', add_stock_ajax, name='add_stock'),
