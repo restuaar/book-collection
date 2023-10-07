@@ -1,3 +1,15 @@
+# BOOK COLLECTION
+
+**Nama** : **Restu Ahmad Ar Ridho** <br/>
+**NPM** : **2206028951** <br/>
+**Kelas** : **PBP - E**
+
+# List README Tugas Sebelumnnya
+
+- [README TUGAS 2](./README_2.md)
+- [README TUGAS 3](./README_3.md)
+
+
 # Apa Itu Django UserCreationForm, dan Jelaskan Apa Kelebihan dan Kekurangannya?
 Django `UserCreationForm` adalah sebuah _form_ bawaan (built-in form) yang disediakan oleh Django untuk memudahkan proses pembuatan akun (_registration_) pada _framework_ Django. _Form_ ini dirancang khusus untuk mengumpulkan data yang diperlukan untuk membuat akun pengguna seperti nama pengguna (`username`), kata sandi (`password1`), konfirmasi kata sandi (`password2`)
 
