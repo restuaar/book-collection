@@ -1,4 +1,5 @@
 import datetime
+import json
 
 from django.http import HttpResponseRedirect, HttpResponse, HttpResponseNotFound
 from django.urls import reverse
@@ -31,10 +32,28 @@ def add_item_ajax(request):
     return HttpResponseNotFound()
 
 @csrf_exempt
-def delete_item_ajax(request, id = None):
-    item = Item.objects.get(pk=id)
+def delete_item_ajax(request):
+    data = json.loads(request.body.decode("utf-8"))
+    item = Item.objects.get(pk=data["id"])
     item.delete()
     return HttpResponse("DELETED",status=200)
+
+@csrf_exempt
+def add_stock_ajax(request):
+    data = json.loads(request.body.decode("utf-8"))
+    item = Item.objects.get(pk=data["id"])
+    item.amount += 1
+    item.save()
+    return HttpResponse(status=200)
+    
+@csrf_exempt
+def sub_stock_ajax(request):
+    data = json.loads(request.body.decode("utf-8"))
+    item = Item.objects.get(pk=data["id"])
+    if item.amount > 1:
+        item.amount -= 1
+        item.save()
+    return HttpResponse(status=200)
 
 def get_item_json(request):
     Items = Item.objects.filter(user=request.user)
@@ -97,19 +116,6 @@ def show_main(request):
     }
 
     return render(request, "main.html", context)
-    
-def add_stock(request, id = None):
-    item = Item.objects.get(pk=id)
-    item.amount += 1
-    item.save()
-    return redirect('main:show_main')
-    
-def sub_stock(request, id = None):
-    item = Item.objects.get(pk=id)
-    if item.amount > 1:
-        item.amount -= 1
-        item.save()
-    return redirect('main:show_main')
     
 
 # Mengembalikan data
