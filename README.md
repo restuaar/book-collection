@@ -50,7 +50,120 @@ Penerapan _asynchronous programming_ pada AJAX (Asynchronous JavaScript and XML)
 
 
 # Implementasi Setiap Step
-  1. 
+  1. Membuat direktori baru pada direktori `static` dengan nama `js` dan membuat berkas JavaScript baru dengan nama `index.js` di dalam direktori `js`.
+  2. Menambahkan link jQuery pada berkas `base.html` pada direktori `templates` di root untuk dapat menggunakan jQuery.
+  3. Menambahkan juga link untuk menghubungkan Vanilla JavaScript yang telah dibuat kedalam berkas `base.html` pada direktori `templates` di root.
+      ```html
+        ...
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+        <script src="{% static 'js/index.js' %}"></script>
+        ...
+      ```
   ### AJAX GET
-# BONUS
+  1. Pada `views.py` di dalam direktori `main` membuat fungsi baru dengan nama `get_item_json` untuk memberikan data item menggunakan `fetch`
+      ```python
+      ...
+      def get_item_json(request):
+        Items = Item.objects.filter(user=request.user)
+        return HttpResponse(serializers.serialize('json', Items))
+      ...
+      ```
+  2. Menambahkan _routing_ untuk mengambil data yang sudah didefinisikan sebelumnya dengan menambahkan kode di dalam berkas `urls.py` pada direktori `main` dan melakukan _import_ fungsi `get_item_json`.
+      ```python
+      ...
+      path('get-product/', get_item_json, name='get_item_json'),
+      ...
+      ```
+  3. Pada berkas `index.js` di direktori `static/js` ditambahkan _handler_ untuk mendapatkan data-data item dengan _method_ GET
+      ```javascript
+      async function getProducts() {
+        return fetch("/get-product").then((res) => res.json());
+      }
+      ```
+  4. Untuk menampilkan item pada html dengan membuat tempat yang sebelumnya dilakukan dengan loop Django diganti dengan dan ditambahkan atribut _class_ pada berkas `main.html` di direktori `main/templates` seperti
+      ```html
+      <div class="container">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 bookshelf">
+          <!-- Tempat Buku -->
+        </div>
+      </div>
+      ```
+  5. Pada berkas `index.js` ditambahkan fungsi untuk melakukan _update_ item apa saja yang ditampilkan dengan menambahkan
+      ```javascript
+      async function refreshItems() {
+        const items = await getItems();
+        let stringAdd = "";
 
+        items.forEach((item) => {
+          stringAdd += `<article class="col buku"><div class="card text-white bg-dark shadow-sm"><div class="card-body"><button value="${item.pk}" onclick="deleteItem(${item.pk})" type="submit" class="btn-close btn-close-white position-absolute top-0 end-0 me-2 mt-2"></button><h5 class="card-title fw-bold">${item.fields.name}</h5><p class="card-text">${item.fields.description}</p><div class="d-flex justify-content-between align-items-center"><div class="btn-group"><button onclick="addStock(${item.pk})" type="button" class="btn btn-sm btn-outline-light">+</button><button onclick="subStock(${item.pk})" type="button" class="btn btn-sm btn-outline-light">-</button></div><small class="text-white">${item.fields.amount}</small></div></div></div></article>`;
+        });
+        
+        $(".bookshelf").html(stringAdd);
+      }
+      ```
+  ### AJAX POST
+  1. Mengubah navbar untuk menambahkan buku pada berkas html yang berkaitan dengan menambahkan kode untuk menampilkan modal untuk menambahkan buku dengan Bootstrap.
+  2. Membuat fungsi baru pada `views.py` untuk menambahkan buku baru dengan kode
+      ```python
+      ...
+      @csrf_exempt
+      def add_item_ajax(request):
+          if request.method == 'POST':
+              name = request.POST.get("name")
+              amount = request.POST.get("amount")
+              description = request.POST.get("description")
+              user = request.user
+
+              new_item = Item(name=name, amount=amount, description=description, user=user)
+              new_item.save()
+
+              return HttpResponse(f"Buku {name} dengan jumlah {amount} telah ditambahkan", status=201)
+
+          return HttpResponseNotFound()
+      ...
+      ```
+  3. Membuat _routing_ untuk menghubungkan ke fungsi yang terlah dibuat untuk menambahkan buku dan dilakukan _import_ fungsi sebelumnya.
+      ```python
+      ...
+      path('create-ajax/', add_item_ajax, name='create_ajax'),
+      ...
+      ```
+  4. Membuat modal untuk menampilkan form untuk menambahkan buku sesuai dengan model `Item` pada berkas `base.html` menggunakan Bootstrap.
+  5. Menambahkan fungsi untuk _handle_ menambahkan buku saat form melakukan _submit_ pada berkas `index.js` dan menampilkan notif.
+      ```javascript
+      ...
+      function addItem() {
+        fetch("/create-ajax/", {
+          method: "POST",
+          body: new FormData(document.querySelector("#form-add-buku")),
+        }).then((data) => {
+          data.text()
+          .then((text) => {
+            $(".notif-buku-baru").text(text);
+            $(".container-notif-buku-baru").show();
+            setTimeout(() => {
+              $(".container-notif-buku-baru").hide();
+            },3000)
+          });
+          refreshItems();
+        }).catch(err => {
+          console.log(err);
+          alert("Gagal menambah item.");
+        });
+
+        document.querySelector("#form-add-buku").reset();
+        return false;
+      ...
+      }
+      ```
+  6. Menambahkan _listener_ pada button modal ketika form akan disubmit dengan menambahkan class pada button dan kode pada `index.js` sesuai dengan classnya.
+      ```javascript
+      ...
+      $("#button_add").click(addItem);
+      ```
+  ### Melakukan Perintah `collectstatic`
+  Pada `cmd` di direktori root masuk kedalam _virtual environtment_ dengan `env\Script\activate.bat` kemudian melakukan perintah `python manage.py collecstatic`.
+
+# BONUS
+Menambahkan fungsi dengan nama `delete_item_ajax(request)` dan melakukan _routing_ sesuai dengan fungsi dan _url_ kemudian pada berkas `index.js` menambahkan fungsi `deleteItem(id)` dengan method `fetch` DELETE yang menerima id item yang ingin dihapus. Dan juga pada htmlnya ditambahkan atribut `onclick` yang berisi funsgi `deleteItem` dengan id-nya. 
+  > Menerapkan hal yang sama pada addStock dan subStock 
