@@ -1,6 +1,7 @@
 import datetime
+import json
 
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, HttpResponseNotFound
 from django.urls import reverse
 from django.core import serializers
 from django.shortcuts import render, redirect
@@ -10,9 +11,53 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm 
 from django.contrib.auth.decorators import login_required
 
+from django.views.decorators.csrf import csrf_exempt
+
 from main.forms import ItemForm
 from main.models import Item
 
+@csrf_exempt
+def add_item_ajax(request):
+    if request.method == 'POST':
+        name = request.POST.get("name")
+        amount = request.POST.get("amount")
+        description = request.POST.get("description")
+        user = request.user
+
+        new_item = Item(name=name, amount=amount, description=description, user=user)
+        new_item.save()
+
+        return HttpResponse(f"Buku {name} dengan jumlah {amount} telah ditambahkan", status=201)
+
+    return HttpResponseNotFound()
+
+@csrf_exempt
+def delete_item_ajax(request):
+    data = json.loads(request.body.decode("utf-8"))
+    item = Item.objects.get(pk=data["id"])
+    item.delete()
+    return HttpResponse("DELETED",status=200)
+
+@csrf_exempt
+def add_stock_ajax(request):
+    data = json.loads(request.body.decode("utf-8"))
+    item = Item.objects.get(pk=data["id"])
+    item.amount += 1
+    item.save()
+    return HttpResponse(status=200)
+    
+@csrf_exempt
+def sub_stock_ajax(request):
+    data = json.loads(request.body.decode("utf-8"))
+    item = Item.objects.get(pk=data["id"])
+    if item.amount > 1:
+        item.amount -= 1
+        item.save()
+    return HttpResponse(status=200)
+
+def get_item_json(request):
+    Items = Item.objects.filter(user=request.user)
+    return HttpResponse(serializers.serialize('json', Items))
 
 def register(request):
     form = UserCreationForm()
@@ -62,50 +107,15 @@ def show_landing_page(request):
 @login_required(login_url='/login')
 def show_main(request):
     Items = Item.objects.filter(user=request.user)
-    new_item = request.session.get('new_item', None)
-    
-    if 'new_item' in request.session:
-        del request.session["new_item"]
 
     context = {
         'name': request.user.username,
         'data' : Items,
-        'new_item' : new_item,
         'last_login': request.COOKIES['last_login'],
         'user' : request.COOKIES['user']
     }
 
     return render(request, "main.html", context)
-
-def create_book(request):
-    form = ItemForm(request.POST or None)
-
-    if form.is_valid() and request.method == "POST":
-        item = form.save(commit=False)
-        item.user = request.user
-        item.save()
-        request.session["new_item"] = request.POST
-        return HttpResponseRedirect(reverse('main:show_main'))
-
-    return render(request, "tambah_buku.html")
-
-def delete_item(request, id = None):
-    item = Item.objects.get(pk=id)
-    item.delete()
-    return redirect('main:show_main')
-    
-def add_stock(request, id = None):
-    item = Item.objects.get(pk=id)
-    item.amount += 1
-    item.save()
-    return redirect('main:show_main')
-    
-def sub_stock(request, id = None):
-    item = Item.objects.get(pk=id)
-    if item.amount > 1:
-        item.amount -= 1
-        item.save()
-    return redirect('main:show_main')
     
 
 # Mengembalikan data

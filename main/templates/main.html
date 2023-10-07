@@ -1,5 +1,4 @@
 {% extends 'base.html' %} 
-
 {% block title %} KoleksiKu | Book Collection {%endblock title %} 
 
 {% block links %}
@@ -25,65 +24,27 @@
   >
 </li>
 <li class="nav-item">
-  <a
+  <button
+    type="button"
+    data-bs-toggle="modal"
+    data-bs-target="#modalAdd"
     class="nav-link active"
-    href="{% url 'main:show_tambah_buku' %}"
-    ><span class="border-bottom border-light">Tambah Buku</span></a
   >
+    <span class="border-bottom border-light">Tambah Buku</span>
+  </button>
 </li>
 {% endblock links %} 
 
 {% block content %}
 <div class="album pb-5 pt-3">
-  {% if new_item %}
-  <div class="card w-50 mb-3 mx-auto">
-    <p class="card-body text-center mb-0">
-      Buku {{ new_item.name }} dengan jumlah {{ new_item.amount }} telah ditambahkan
+  <div class="card w-50 mb-3 mx-auto container-notif-buku-baru">
+    <p class="card-body text-center mb-0 notif-buku-baru">
+      <!-- Notif buku baru -->
     </p>
   </div>
-  {% endif %}
   <div class="container">
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-      {% for buku in data %}
-      <article class="col buku">
-        <div class="card text-white bg-dark shadow-sm">
-          <div class="card-body">
-            <form
-              action="{% url 'main:delete' id=buku.id %}"
-              method="POST"
-            >
-              {% csrf_token %}
-              <button
-                type="submit"
-                class="btn-close btn-close-white position-absolute top-0 end-0 me-2 mt-2"
-              ></button>
-            </form>
-
-            <h5 class="card-title fw-bold">{{ buku.name }}</h5>
-            <p class="card-text">{{ buku.description }}</p>
-            <div class="d-flex justify-content-between align-items-center">
-              <div class="btn-group">
-                <a
-                  href="{% url 'main:add_stock' id=buku.id %}"
-                  type="button"
-                  class="btn btn-sm btn-outline-light"
-                >
-                  +
-                </a>
-                <a
-                  href="{% url 'main:sub_stock' id=buku.id %}"
-                  type="button"
-                  class="btn btn-sm btn-outline-light"
-                >
-                  -
-                </a>
-              </div>
-              <small class="text-white">{{ buku.amount }}</small>
-            </div>
-          </div>
-        </div>
-      </article>
-      {% endfor %}
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 bookshelf">
+      <!-- Tempat Buku -->
     </div>
   </div>
 </div>
